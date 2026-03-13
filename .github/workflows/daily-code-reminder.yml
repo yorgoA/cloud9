@@ -1,0 +1,42 @@
+# Daily reminder at 21:00 to change the Cloud9 daily code.
+# Sends an email with a link to /admin/daily-code (owner must be logged in).
+#
+# Setup:
+# 1. Set ADMIN_EMAIL and APP_URL (e.g. https://your-cloud9.vercel.app) as repo secrets.
+# 2. To send email, use one of:
+#    - Resend: set RESEND_API_KEY and use the Resend step below.
+#    - Or replace the job with a webhook (e.g. IFTTT, Zapier) that sends the email.
+name: Daily code reminder
+
+on:
+  schedule:
+    # 21:00 UTC; adjust cron for your timezone (e.g. 20:00 UTC = 21:00 CET)
+    - cron: "0 21 * * *"
+  workflow_dispatch: # allow manual run
+
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    env:
+      RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+      ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
+      APP_URL: ${{ secrets.APP_URL }}
+    steps:
+      - name: Send reminder email via Resend
+        if: env.RESEND_API_KEY != ''
+        run: |
+          [ -z "$ADMIN_EMAIL" ] || [ -z "$APP_URL" ] && { echo "Set ADMIN_EMAIL and APP_URL."; exit 0; }
+          curl -s -X POST "https://api.resend.com/emails" \
+            -H "Authorization: Bearer $RESEND_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d "{
+              \"from\": \"Cloud9 Reminder <onboarding@resend.dev>\",
+              \"to\": [\"$ADMIN_EMAIL\"],
+              \"subject\": \"Cloud9: Time to set tomorrow’s daily code\",
+              \"html\": \"<p>Hi,</p><p>Remember to set tomorrow’s daily code for Cloud9 loyalty.</p><p><a href=\\\"$APP_URL/admin/daily-code\\\">Open Daily Code →</a></p><p>Cloud9</p>\"
+            }"
+      - name: Reminder link (no email configured)
+        if: env.RESEND_API_KEY == ''
+        run: |
+          echo "Daily code reminder: ${{ secrets.APP_URL || 'https://your-app.com' }}/admin/daily-code"
+          echo "Configure RESEND_API_KEY, ADMIN_EMAIL, and APP_URL for email."
