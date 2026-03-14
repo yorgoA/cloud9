@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
-import { Cloud, LayoutDashboard, Utensils, Image, Gift, Users, Key, QrCode, MessageCircle, ExternalLink, MapPin } from "lucide-react";
+import { Cloud, LayoutDashboard, Utensils, Image, Gift, Users, QrCode, MessageCircle, ExternalLink, MapPin } from "lucide-react";
 
 export default async function AdminDashboardLayout({
   children,
@@ -29,8 +29,7 @@ export default async function AdminDashboardLayout({
     { href: "/admin/gallery", label: "Gallery", icon: Image },
     { href: "/admin/rewards", label: "Rewards", icon: Gift },
     { href: "/admin/loyalty", label: "Loyalty", icon: Users },
-    { href: "/admin/daily-code", label: "Daily code", icon: Key },
-    { href: "/admin/qr", label: "Weekly QR", icon: QrCode },
+    { href: "/admin/in-store", label: "In-store", icon: QrCode },
     { href: "/admin/mood", label: "Cloud9 mood", icon: MessageCircle },
     { href: "/admin/addresses", label: "Addresses", icon: MapPin },
   ];

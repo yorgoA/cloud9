@@ -63,9 +63,9 @@ The workflow in `.github/workflows/daily-code-reminder.yml` runs at 21:00 UTC an
 
 - **Public site:** Home, Concept, Menu, Gallery, Loyalty intro, Visit Us
 - **Weekly Cloud9 mood:** Editable message on the homepage (admin → Cloud9 mood)
-- **Loyalty:** Customers claim one visit per day (QR + daily code), earn points, redeem rewards
+- **Loyalty:** Customers scan the in-store QR (print once), enter the daily code, claim one visit per day
 - **Staff:** Scan a customer’s redemption QR at `/staff/validate` to validate and deduct points
-- **Admin:** Menu, gallery, rewards, loyalty (customers/points), daily code, weekly QR, mood, addresses (address, phone, email, Instagram, TikTok)
+- **Admin:** Menu, gallery, rewards, loyalty (customers/points), in-store (daily code + QR), mood, addresses
 
 ## Project structure
 

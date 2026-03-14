@@ -7,15 +7,12 @@ import { Button } from "@/components/ui/button";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
-import { useSearchParams } from "next/navigation";
 import { useRouter } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 
 export function LoyaltyClaimClient() {
   const t = useTranslations("loyaltyClaim");
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const weekKey = searchParams.get("week");
   const [user, setUser] = useState<User | null>(null);
   const [authChecked, setAuthChecked] = useState(false);
   const [code, setCode] = useState("");
@@ -38,9 +35,7 @@ export function LoyaltyClaimClient() {
     return () => subscription.unsubscribe();
   }, []);
 
-  const loginUrl = `/loyalty/claim/login?redirect=/loyalty/claim${
-    weekKey ? `?week=${weekKey}` : ""
-  }`;
+  const loginUrl = "/loyalty/claim/login?redirect=/loyalty/claim";
 
   const handleClaim = async () => {
     setError(null);
@@ -55,10 +50,7 @@ export function LoyaltyClaimClient() {
       const res = await fetch("/api/loyalty/claim", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          code: code.trim().toUpperCase(),
-          week_key: weekKey || undefined,
-        }),
+        body: JSON.stringify({ code: code.trim().toUpperCase() }),
       });
       const data = await res.json();
 

@@ -33,8 +33,8 @@ export function DailyCodeClient({ initialCode }: { initialCode: string | null })
   };
 
   return (
-    <GlassCard className="mt-6 max-w-md p-6">
-      <p className="text-sm text-stone-600">Current code (shown in café)</p>
+    <GlassCard className="max-w-md p-6 print:hidden">
+      <p className="text-sm text-stone-600">Daily code (shown in café)</p>
       <div className="mt-2 flex items-center gap-3">
         <input
           type="text"
@@ -51,7 +51,7 @@ export function DailyCodeClient({ initialCode }: { initialCode: string | null })
       {message === "success" && <p className="mt-2 text-sm text-green-600">Code updated.</p>}
       {message === "error" && <p className="mt-2 text-sm text-red-600">Failed to update.</p>}
       <Button className="mt-4" onClick={handleSave} disabled={loading || !code.trim()}>
-        {loading ? "Saving…" : "Save new code"}
+        {loading ? "Saving…" : "Save code"}
       </Button>
     </GlassCard>
   );

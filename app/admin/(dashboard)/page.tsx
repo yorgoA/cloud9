@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Utensils, Image, Gift, Users, Key, QrCode, MessageCircle } from "lucide-react";
+import { Utensils, Image, Gift, Users, QrCode, MessageCircle } from "lucide-react";
 import { GlassCard } from "@/components/ui/GlassCard";
 
 const links = [
@@ -7,8 +7,7 @@ const links = [
   { href: "/admin/gallery", label: "Gallery", icon: Image },
   { href: "/admin/rewards", label: "Rewards", icon: Gift },
   { href: "/admin/loyalty", label: "Loyalty", icon: Users },
-  { href: "/admin/daily-code", label: "Daily code", icon: Key },
-  { href: "/admin/qr", label: "Weekly QR", icon: QrCode },
+  { href: "/admin/in-store", label: "In-store", icon: QrCode },
   { href: "/admin/mood", label: "Cloud9 mood", icon: MessageCircle },
 ];
 

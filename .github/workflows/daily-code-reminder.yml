@@ -1,5 +1,5 @@
 # Daily reminder at 21:00 to change the Cloud9 daily code.
-# Sends an email with a link to /admin/daily-code (owner must be logged in).
+# Sends an email with a link to /admin/in-store (owner must be logged in).
 #
 # Setup:
 # 1. Set ADMIN_EMAIL and APP_URL (e.g. https://your-cloud9.vercel.app) as repo secrets.
@@ -33,10 +33,10 @@ jobs:
               \"from\": \"Cloud9 Reminder <onboarding@resend.dev>\",
               \"to\": [\"$ADMIN_EMAIL\"],
               \"subject\": \"Cloud9: Time to set tomorrow’s daily code\",
-              \"html\": \"<p>Hi,</p><p>Remember to set tomorrow’s daily code for Cloud9 loyalty.</p><p><a href=\\\"$APP_URL/admin/daily-code\\\">Open Daily Code →</a></p><p>Cloud9</p>\"
+              \"html\": \"<p>Hi,</p><p>Remember to set tomorrow’s daily code for Cloud9 loyalty.</p><p><a href=\\\"$APP_URL/admin/in-store\\\">Open Daily Code →</a></p><p>Cloud9</p>\"
             }"
       - name: Reminder link (no email configured)
         if: env.RESEND_API_KEY == ''
         run: |
-          echo "Daily code reminder: ${{ secrets.APP_URL || 'https://your-app.com' }}/admin/daily-code"
+          echo "Daily code reminder: ${{ secrets.APP_URL || 'https://your-app.com' }}/admin/in-store"
           echo "Configure RESEND_API_KEY, ADMIN_EMAIL, and APP_URL for email."
