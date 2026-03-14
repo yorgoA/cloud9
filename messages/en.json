@@ -1,0 +1,139 @@
+{
+  "common": {
+    "cloud9": "Cloud9",
+    "menu": "Menu",
+    "concept": "Concept",
+    "gallery": "Gallery",
+    "loyalty": "Loyalty",
+    "visitUs": "Visit Us",
+    "home": "Home",
+    "logIn": "Log in",
+    "signOut": "Sign out",
+    "myRewards": "My Rewards",
+    "admin": "Admin",
+    "cancel": "Cancel",
+    "close": "Close",
+    "done": "Done",
+    "loading": "Loading…",
+    "signIn": "Sign in",
+    "createAccount": "Create account",
+    "backToLoyalty": "Back to Loyalty"
+  },
+  "home": {
+    "tagline": "A coffee shop where every cup feels like a moment in the clouds.",
+    "address": "123 Cloud Street · Sky District",
+    "seeMenu": "See menu",
+    "ourStory": "Our story",
+    "moodTitle": "This week's Cloud9 mood",
+    "menuCardTitle": "Menu",
+    "menuCardDesc": "Specialty drinks, pastries, and our signature blends.",
+    "loyaltyCardTitle": "Loyalty",
+    "loyaltyCardDesc": "Collect points with every visit and redeem rewards.",
+    "visitCardTitle": "Visit Us",
+    "visitCardDesc": "Find our location, opening hours, and how to reach us."
+  },
+  "concept": {
+    "title": "Our concept",
+    "subtitle": "Where the sky meets your cup",
+    "storyTitle": "The story",
+    "storyText": "Cloud9 was born from a simple idea: what if your coffee break felt like a little escape? We wanted a space that feels soft, dreamy, and a world away from the rush—somewhere you can slow down, sip something wonderful, and leave feeling a little lighter.",
+    "cafeTitle": "The café",
+    "cafeText": "Our café is designed to feel like stepping into a cloud—airy, calm, and inviting. Soft curves, natural light, and a palette of creams and sky blues create a place where every visit feels special. Whether you're here for a quick takeaway or a long catch-up, we hope you leave feeling on cloud nine.",
+    "coffeeTitle": "The coffee",
+    "coffeeText": "We source our beans with care and craft each drink to be as beautiful as it is delicious. From our signature Cloud Blend to seasonal specials, every cup is made with the same attention to detail and a touch of magic."
+  },
+  "menu": {
+    "title": "Menu",
+    "subtitle": "Our drinks and treats",
+    "updating": "Our menu is being updated. Check back soon.",
+    "other": "Other"
+  },
+  "visit": {
+    "title": "Visit Us",
+    "subtitle": "We can't wait to see you",
+    "addressTitle": "Address",
+    "addressLine1": "123 Cloud Street",
+    "addressLine2": "Sky District",
+    "addressLine3": "Your City",
+    "addressNote": "(Update this in your content or add a CMS.)",
+    "hoursTitle": "Opening hours",
+    "hoursWeekday": "Monday – Friday: 8:00 – 18:00",
+    "hoursWeekend": "Saturday – Sunday: 9:00 – 17:00",
+    "hoursNote": "(Update with your real hours.)",
+    "contactTitle": "Contact",
+    "followTitle": "Follow us"
+  },
+  "gallery": {
+    "title": "Gallery",
+    "subtitle": "A glimpse of Cloud9",
+    "comingSoon": "Photos coming soon.",
+    "alt": "Cloud9"
+  },
+  "loyalty": {
+    "title": "Loyalty",
+    "subtitle": "Collect points. Redeem rewards. Feel the love.",
+    "howItWorksTitle": "How it works",
+    "howItWorksText": "Visit us in the café, scan the QR code at the counter, enter the daily code you see in-store, and claim your points. One claim per day—so every visit counts.",
+    "rewardsTitle": "Rewards",
+    "rewardsText": "Save up your points and redeem them for discounts, small souvenirs, or a free signature drink. Your balance never expires.",
+    "claimButton": "Claim visit / Open loyalty app"
+  },
+  "loyaltyApp": {
+    "title": "Cloud9 Loyalty",
+    "yourBalance": "Your balance",
+    "pts": "pts",
+    "claimToday": "Claim today's visit",
+    "rewardsTitle": "Rewards",
+    "rewardsSubtitle": "Redeem your points in the café",
+    "loadingAccount": "Loading your account…",
+    "signIn": "Sign in"
+  },
+  "loyaltyClaim": {
+    "title": "Claim your visit",
+    "subtitle": "Enter the daily code from the café to collect your points.",
+    "dailyCode": "Daily code",
+    "codePlaceholder": "e.g. CLOUD9",
+    "claimPoints": "Claim points",
+    "claiming": "Claiming…",
+    "signInFirst": "Sign in first",
+    "pointsAdded": "Points added! See you next time.",
+    "redirecting": "Taking you to your loyalty account…",
+    "oneClaimNote": "One claim per day. Code is visible in the café.",
+    "scanNote": "Scan the in-store QR to open this page.",
+    "somethingWrong": "Something went wrong."
+  },
+  "loyaltyLogin": {
+    "title": "Sign in or create account",
+    "subtitle": "Claim visits and manage your loyalty points.",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "signIn": "Sign in",
+    "signingIn": "Signing in…",
+    "createAccount": "Create account",
+    "creatingAccount": "Creating account…",
+    "newUser": "New to the cloud? Create account",
+    "existingUser": "Already have an account? Sign in",
+    "checkEmail": "Check your email to confirm your account, then sign in below.",
+    "enterEmailPassword": "Please enter your email and password to create an account.",
+    "passwordsMismatch": "Passwords do not match.",
+    "passwordLength": "Password must be at least 6 characters."
+  },
+  "redeemModal": {
+    "title": "Redeem reward",
+    "pointsBalance": "{points} points · Your balance: {balance} pts",
+    "showQr": "Show QR to staff",
+    "creating": "Creating…",
+    "showQrNote": "Show this QR to staff. Points will be deducted when they validate.",
+    "validNote": "Valid for a few minutes. Single use.",
+    "redemptionQr": "Redemption QR",
+    "couldNotCreate": "Could not create redemption"
+  },
+  "footer": {
+    "freshRoasted": "FRESH ROASTED DAILY",
+    "locallySourced": "LOCALLY SOURCED",
+    "warmWelcome": "WARM WELCOME",
+    "findUs": "Find us",
+    "address": "123 Cloud St"
+  }
+}

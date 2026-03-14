@@ -1,15 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Cloud } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { createClient } from "@/lib/supabase/client";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 
 export function LoyaltyLoginClient() {
+  const t = useTranslations("loyaltyLogin");
+  const tCommon = useTranslations("common");
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirect") ?? "/loyalty/app";
@@ -38,7 +42,10 @@ export function LoyaltyLoginClient() {
     setError(null);
     setLoading(true);
     try {
-      const { error: e } = await supabase.auth.signInWithPassword({ email, password });
+      const { error: e } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
       if (e) {
         setError(e.message);
         return;
@@ -52,15 +59,15 @@ export function LoyaltyLoginClient() {
 
   const handleSignUp = async () => {
     if (!email.trim() || !password.trim()) {
-      setError("Please enter your email and password to create an account.");
+      setError(t("enterEmailPassword"));
       return;
     }
     if (password !== confirmPassword) {
-      setError("Passwords do not match.");
+      setError(t("passwordsMismatch"));
       return;
     }
     if (password.length < 6) {
-      setError("Password must be at least 6 characters.");
+      setError(t("passwordLength"));
       return;
     }
     setError(null);
@@ -69,7 +76,9 @@ export function LoyaltyLoginClient() {
       const { error: e } = await supabase.auth.signUp({
         email,
         password,
-        options: { emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(redirect)}` },
+        options: {
+          emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(redirect)}`,
+        },
       });
       if (e) {
         setError(e.message);
@@ -93,14 +102,16 @@ export function LoyaltyLoginClient() {
     >
       <div className="text-center">
         <Cloud className="mx-auto h-12 w-12 text-sky-blue" />
-        <h1 className="mt-4 font-serif text-2xl font-medium text-stone-800">Sign in or create account</h1>
-        <p className="mt-2 text-sm text-stone-600">
-          Claim visits and manage your loyalty points.
-        </p>
+        <h1 className="mt-4 font-serif text-2xl font-medium text-stone-800">
+          {t("title")}
+        </h1>
+        <p className="mt-2 text-sm text-stone-600">{t("subtitle")}</p>
       </div>
 
       <GlassCard className="p-6">
-        <label className="block text-sm font-medium text-stone-700">Email</label>
+        <label className="block text-sm font-medium text-stone-700">
+          {t("email")}
+        </label>
         <input
           type="email"
           value={email}
@@ -108,7 +119,9 @@ export function LoyaltyLoginClient() {
           placeholder="you@example.com"
           className="mt-2 w-full rounded-2xl border border-latte-beige bg-soft-white/80 px-4 py-3 font-sans text-stone-800 placeholder:text-stone-400 focus:border-sky-blue focus:outline-none focus:ring-2 focus:ring-sky-blue/20"
         />
-        <label className="mt-4 block text-sm font-medium text-stone-700">Password</label>
+        <label className="mt-4 block text-sm font-medium text-stone-700">
+          {t("password")}
+        </label>
         <input
           type="password"
           value={password}
@@ -125,7 +138,9 @@ export function LoyaltyLoginClient() {
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.2 }}
             >
-              <label className="mt-4 block text-sm font-medium text-stone-700">Confirm password</label>
+              <label className="mt-4 block text-sm font-medium text-stone-700">
+                {t("confirmPassword")}
+              </label>
               <input
                 type="password"
                 value={confirmPassword}
@@ -138,9 +153,7 @@ export function LoyaltyLoginClient() {
         </AnimatePresence>
         {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
         {signedUp && (
-          <p className="mt-2 text-sm text-emerald-600">
-            Check your email to confirm your account, then sign in below.
-          </p>
+          <p className="mt-2 text-sm text-emerald-600">{t("checkEmail")}</p>
         )}
         {mode === "signin" ? (
           <div className="mt-4 flex flex-col gap-2">
@@ -151,14 +164,14 @@ export function LoyaltyLoginClient() {
               onClick={handleSignIn}
               disabled={loading || !email.trim() || !password.trim()}
             >
-              {loading ? "Signing in…" : "Sign in"}
+              {loading ? t("signingIn") : t("signIn")}
             </Button>
             <button
               type="button"
               onClick={switchToSignUp}
               className="rounded-2xl border border-latte-beige bg-soft-white/50 px-4 py-3 text-sm font-medium text-stone-600 transition-colors hover:bg-cloud-200/80 hover:text-stone-800"
             >
-              New to the cloud? Create account
+              {t("newUser")}
             </button>
           </div>
         ) : (
@@ -168,23 +181,30 @@ export function LoyaltyLoginClient() {
               size="lg"
               variant="coffee"
               onClick={handleSignUp}
-              disabled={loading || !email.trim() || !password.trim() || !confirmPassword.trim()}
+              disabled={
+                loading ||
+                !email.trim() ||
+                !password.trim() ||
+                !confirmPassword.trim()
+              }
             >
-              {loading ? "Creating account…" : "Create account"}
+              {loading ? t("creatingAccount") : t("createAccount")}
             </Button>
             <button
               type="button"
               onClick={switchToSignIn}
               className="text-sm text-stone-600 hover:text-stone-800"
             >
-              Already have an account? Sign in
+              {t("existingUser")}
             </button>
           </div>
         )}
       </GlassCard>
 
       <p className="text-center text-sm text-stone-500">
-        <Link href="/loyalty" className="text-sky-blue hover:underline">Back to Loyalty</Link>
+        <Link href="/loyalty" className="text-sky-blue hover:underline">
+          {tCommon("backToLoyalty")}
+        </Link>
       </p>
     </motion.div>
   );

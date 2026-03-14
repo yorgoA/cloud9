@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, QrCode } from "lucide-react";
+import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
 import type { RewardCatalog } from "@/lib/db/types";
+import { useTranslations } from "next-intl";
 
 interface RedeemModalProps {
   reward: RewardCatalog | null;
@@ -14,7 +15,14 @@ interface RedeemModalProps {
   onRedeemed: () => void;
 }
 
-export function RedeemModal({ reward, pointsBalance, onClose, onRedeemed }: RedeemModalProps) {
+export function RedeemModal({
+  reward,
+  pointsBalance,
+  onClose,
+  onRedeemed,
+}: RedeemModalProps) {
+  const t = useTranslations("redeemModal");
+  const tCommon = useTranslations("common");
   const [step, setStep] = useState<"confirm" | "qr" | "error">("confirm");
   const [loading, setLoading] = useState(false);
   const [redeemUrl, setRedeemUrl] = useState<string | null>(null);
@@ -35,14 +43,14 @@ export function RedeemModal({ reward, pointsBalance, onClose, onRedeemed }: Rede
       });
       const data = await res.json();
       if (!res.ok) {
-        setError(data.error ?? "Could not create redemption");
+        setError(data.error ?? t("couldNotCreate"));
         setStep("error");
         return;
       }
       setRedeemUrl(data.redeem_url ?? null);
       setStep("qr");
     } catch {
-      setError("Something went wrong");
+      setError(t("couldNotCreate"));
       setStep("error");
     } finally {
       setLoading(false);
@@ -74,12 +82,14 @@ export function RedeemModal({ reward, pointsBalance, onClose, onRedeemed }: Rede
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between">
-              <h3 className="font-serif text-xl font-medium text-stone-800">Redeem reward</h3>
+              <h3 className="font-serif text-xl font-medium text-stone-800">
+                {t("title")}
+              </h3>
               <button
                 type="button"
                 onClick={handleClose}
                 className="rounded-xl p-2 text-stone-500 hover:bg-cloud-200"
-                aria-label="Close"
+                aria-label={tCommon("close")}
               >
                 <X className="h-5 w-5" />
               </button>
@@ -89,22 +99,26 @@ export function RedeemModal({ reward, pointsBalance, onClose, onRedeemed }: Rede
               <>
                 <p className="mt-2 font-medium text-stone-800">{reward.name}</p>
                 {reward.description && (
-                  <p className="mt-1 text-sm text-stone-600">{reward.description}</p>
+                  <p className="mt-1 text-sm text-stone-600">
+                    {reward.description}
+                  </p>
                 )}
                 <p className="mt-2 text-sm text-stone-600">
-                  {reward.points_required} points · Your balance: {pointsBalance} pts
+                  {t("pointsBalance", { points: reward.points_required, balance: pointsBalance })}
                 </p>
-                {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
+                {error && (
+                  <p className="mt-2 text-sm text-red-600">{error}</p>
+                )}
                 <div className="mt-6 flex gap-3">
                   <Button variant="ghost" className="flex-1" onClick={handleClose}>
-                    Cancel
+                    {tCommon("cancel")}
                   </Button>
                   <Button
                     className="flex-1"
                     onClick={handleRedeem}
                     disabled={!canRedeem || loading}
                   >
-                    {loading ? "Creating…" : "Show QR to staff"}
+                    {loading ? t("creating") : t("showQr")}
                   </Button>
                 </div>
               </>
@@ -112,21 +126,19 @@ export function RedeemModal({ reward, pointsBalance, onClose, onRedeemed }: Rede
 
             {step === "qr" && redeemUrl && (
               <>
-                <p className="mt-2 text-sm text-stone-600">
-                  Show this QR to staff. Points will be deducted when they validate.
-                </p>
+                <p className="mt-2 text-sm text-stone-600">{t("showQrNote")}</p>
                 <div className="mt-4 flex justify-center rounded-2xl bg-white p-4">
                   <img
                     src={redeemUrl}
-                    alt="Redemption QR"
+                    alt={t("redemptionQr")}
                     className="h-48 w-48 object-contain"
                   />
                 </div>
                 <p className="mt-2 text-center text-xs text-stone-500">
-                  Valid for a few minutes. Single use.
+                  {t("validNote")}
                 </p>
                 <Button className="mt-4 w-full" onClick={handleClose}>
-                  Done
+                  {tCommon("done")}
                 </Button>
               </>
             )}
@@ -135,7 +147,7 @@ export function RedeemModal({ reward, pointsBalance, onClose, onRedeemed }: Rede
               <>
                 <p className="mt-2 text-sm text-red-600">{error}</p>
                 <Button className="mt-4 w-full" onClick={handleClose}>
-                  Close
+                  {tCommon("close")}
                 </Button>
               </>
             )}

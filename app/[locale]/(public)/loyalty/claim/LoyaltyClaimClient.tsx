@@ -1,15 +1,18 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { Cloud, QrCode } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 
 export function LoyaltyClaimClient() {
+  const t = useTranslations("loyaltyClaim");
   const router = useRouter();
   const searchParams = useSearchParams();
   const weekKey = searchParams.get("week");
@@ -27,11 +30,17 @@ export function LoyaltyClaimClient() {
       setUser(user);
       setAuthChecked(true);
     });
-    const { data: { subscription } } = client.auth.onAuthStateChange((_event, session) => {
+    const {
+      data: { subscription },
+    } = client.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
     });
     return () => subscription.unsubscribe();
   }, []);
+
+  const loginUrl = `/loyalty/claim/login?redirect=/loyalty/claim${
+    weekKey ? `?week=${weekKey}` : ""
+  }`;
 
   const handleClaim = async () => {
     setError(null);
@@ -39,19 +48,22 @@ export function LoyaltyClaimClient() {
     try {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
-        router.push(`/loyalty/claim/login?redirect=/loyalty/claim${weekKey ? `?week=${weekKey}` : ""}`);
+        router.push(loginUrl);
         return;
       }
 
       const res = await fetch("/api/loyalty/claim", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ code: code.trim().toUpperCase(), week_key: weekKey || undefined }),
+        body: JSON.stringify({
+          code: code.trim().toUpperCase(),
+          week_key: weekKey || undefined,
+        }),
       });
       const data = await res.json();
 
       if (!res.ok) {
-        setError(data.error ?? "Something went wrong.");
+        setError(data.error ?? t("somethingWrong"));
         return;
       }
       setSuccess(true);
@@ -62,7 +74,7 @@ export function LoyaltyClaimClient() {
   };
 
   const handleSignIn = () => {
-    router.push(`/loyalty/claim/login?redirect=/loyalty/claim${weekKey ? `?week=${weekKey}` : ""}`);
+    router.push(loginUrl);
   };
 
   return (
@@ -73,25 +85,27 @@ export function LoyaltyClaimClient() {
     >
       <div className="text-center">
         <Cloud className="mx-auto h-12 w-12 text-sky-blue" />
-        <h1 className="mt-4 font-serif text-2xl font-medium text-stone-800">Claim your visit</h1>
-        <p className="mt-2 text-sm text-stone-600">
-          Enter the daily code from the café to collect your points.
-        </p>
+        <h1 className="mt-4 font-serif text-2xl font-medium text-stone-800">
+          {t("title")}
+        </h1>
+        <p className="mt-2 text-sm text-stone-600">{t("subtitle")}</p>
       </div>
 
       {success ? (
         <GlassCard className="p-8 text-center">
-          <p className="font-medium text-stone-800">Points added! See you next time.</p>
-          <p className="mt-2 text-sm text-stone-600">Taking you to your loyalty account…</p>
+          <p className="font-medium text-stone-800">{t("pointsAdded")}</p>
+          <p className="mt-2 text-sm text-stone-600">{t("redirecting")}</p>
         </GlassCard>
       ) : (
         <GlassCard className="p-6">
-          <label className="block text-sm font-medium text-stone-700">Daily code</label>
+          <label className="block text-sm font-medium text-stone-700">
+            {t("dailyCode")}
+          </label>
           <input
             type="text"
             value={code}
             onChange={(e) => setCode(e.target.value)}
-            placeholder="e.g. CLOUD9"
+            placeholder={t("codePlaceholder")}
             className="mt-2 w-full rounded-2xl border border-latte-beige bg-soft-white/80 px-4 py-3 font-sans text-stone-800 placeholder:text-stone-400 focus:border-sky-blue focus:outline-none focus:ring-2 focus:ring-sky-blue/20"
             maxLength={12}
             autoCapitalize="characters"
@@ -106,7 +120,7 @@ export function LoyaltyClaimClient() {
             onClick={handleClaim}
             disabled={loading || !code.trim()}
           >
-            {loading ? "Claiming…" : "Claim points"}
+            {loading ? t("claiming") : t("claimPoints")}
           </Button>
           {authChecked && !user && (
             <Button
@@ -114,15 +128,15 @@ export function LoyaltyClaimClient() {
               className="mt-3 w-full"
               onClick={handleSignIn}
             >
-              Sign in first
+              {t("signInFirst")}
             </Button>
           )}
         </GlassCard>
       )}
 
       <p className="text-center text-xs text-stone-500">
-        One claim per day. Code is visible in the café. <br />
-        <QrCode className="mx-auto mt-1 inline h-4 w-4" /> Scan the in-store QR to open this page.
+        {t("oneClaimNote")} <br />
+        <QrCode className="mx-auto mt-1 inline h-4 w-4" /> {t("scanNote")}
       </p>
     </motion.div>
   );

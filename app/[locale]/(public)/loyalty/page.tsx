@@ -1,18 +1,19 @@
-import Link from "next/link";
 import { Gift, QrCode, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GlassCard } from "@/components/ui/GlassCard";
+import { Link } from "@/i18n/navigation";
+import { getTranslations } from "next-intl/server";
 
-export default function LoyaltyIntroPage() {
+export default async function LoyaltyIntroPage() {
+  const t = await getTranslations("loyalty");
+
   return (
     <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-24">
       <header className="text-center">
         <h1 className="font-serif text-4xl font-medium text-[#5D4037] sm:text-5xl">
-          Loyalty
+          {t("title")}
         </h1>
-        <p className="mt-4 font-sans text-[#5D4037]">
-          Collect points. Redeem rewards. Feel the love.
-        </p>
+        <p className="mt-4 font-sans text-[#5D4037]">{t("subtitle")}</p>
       </header>
 
       <div className="mt-16 space-y-8">
@@ -20,10 +21,11 @@ export default function LoyaltyIntroPage() {
           <div className="flex items-start gap-4">
             <Star className="h-10 w-10 shrink-0 text-sky-blue" />
             <div>
-              <h2 className="font-serif text-xl font-medium text-stone-800">How it works</h2>
+              <h2 className="font-serif text-xl font-medium text-stone-800">
+                {t("howItWorksTitle")}
+              </h2>
               <p className="mt-2 font-sans text-stone-600">
-                Visit us in the café, scan the QR code at the counter, enter the daily code you see
-                in-store, and claim your points. One claim per day—so every visit counts.
+                {t("howItWorksText")}
               </p>
             </div>
           </div>
@@ -33,10 +35,11 @@ export default function LoyaltyIntroPage() {
           <div className="flex items-start gap-4">
             <Gift className="h-10 w-10 shrink-0 text-sky-blue" />
             <div>
-              <h2 className="font-serif text-xl font-medium text-stone-800">Rewards</h2>
+              <h2 className="font-serif text-xl font-medium text-stone-800">
+                {t("rewardsTitle")}
+              </h2>
               <p className="mt-2 font-sans text-stone-600">
-                Save up your points and redeem them for discounts, small souvenirs, or a free
-                signature drink. Your balance never expires.
+                {t("rewardsText")}
               </p>
             </div>
           </div>
@@ -46,7 +49,7 @@ export default function LoyaltyIntroPage() {
           <Button asChild size="lg" variant="coffee">
             <Link href="/loyalty/claim" className="flex items-center gap-2">
               <QrCode className="h-5 w-5" />
-              Claim visit / Open loyalty app
+              {t("claimButton")}
             </Link>
           </Button>
         </div>

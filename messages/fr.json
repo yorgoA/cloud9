@@ -1,0 +1,139 @@
+{
+  "common": {
+    "cloud9": "Cloud9",
+    "menu": "Menu",
+    "concept": "Concept",
+    "gallery": "Galerie",
+    "loyalty": "Fidélité",
+    "visitUs": "Nous rendre visite",
+    "home": "Accueil",
+    "logIn": "Connexion",
+    "signOut": "Déconnexion",
+    "myRewards": "Mes récompenses",
+    "admin": "Admin",
+    "cancel": "Annuler",
+    "close": "Fermer",
+    "done": "Terminé",
+    "loading": "Chargement…",
+    "signIn": "Connexion",
+    "createAccount": "Créer un compte",
+    "backToLoyalty": "Retour à la fidélité"
+  },
+  "home": {
+    "tagline": "Un café où chaque tasse est un moment passé dans les nuages.",
+    "address": "123 Cloud Street · Sky District",
+    "seeMenu": "Voir le menu",
+    "ourStory": "Notre histoire",
+    "moodTitle": "L'ambiance Cloud9 de la semaine",
+    "menuCardTitle": "Menu",
+    "menuCardDesc": "Boissons spéciales, pâtisseries et nos mélanges signature.",
+    "loyaltyCardTitle": "Fidélité",
+    "loyaltyCardDesc": "Collectez des points à chaque visite et échangez-les contre des récompenses.",
+    "visitCardTitle": "Nous rendre visite",
+    "visitCardDesc": "Trouvez notre adresse, nos horaires et comment nous rejoindre."
+  },
+  "concept": {
+    "title": "Notre concept",
+    "subtitle": "Là où le ciel rencontre votre tasse",
+    "storyTitle": "L'histoire",
+    "storyText": "Cloud9 est né d'une idée simple : et si votre pause café ressemblait à une petite évasion ? Nous voulions un espace doux, onirique et loin de l'agitation—un endroit où prendre son temps, savourer quelque chose de délicieux et repartir plus léger.",
+    "cafeTitle": "Le café",
+    "cafeText": "Notre café est conçu pour donner l'impression de marcher dans un nuage—aéré, calme et accueillant. Courbes douces, lumière naturelle et une palette de crèmes et bleu ciel créent un lieu où chaque visite est spéciale. Que vous veniez pour un café à emporter ou une longue discussion, nous espérons que vous repartirez sur un petit nuage.",
+    "coffeeTitle": "Le café",
+    "coffeeText": "Nous sélectionnons nos grains avec soin et préparons chaque boisson pour qu'elle soit aussi belle que délicieuse. De notre mélange Cloud signature aux spécialités de saison, chaque tasse est réalisée avec la même attention aux détails et une touche de magie."
+  },
+  "menu": {
+    "title": "Menu",
+    "subtitle": "Nos boissons et gourmandises",
+    "updating": "Notre menu est en cours de mise à jour. Revenez bientôt.",
+    "other": "Autre"
+  },
+  "visit": {
+    "title": "Nous rendre visite",
+    "subtitle": "Nous avons hâte de vous accueillir",
+    "addressTitle": "Adresse",
+    "addressLine1": "123 Cloud Street",
+    "addressLine2": "Sky District",
+    "addressLine3": "Votre ville",
+    "addressNote": "(Mettez à jour ce contenu ou ajoutez un CMS.)",
+    "hoursTitle": "Horaires d'ouverture",
+    "hoursWeekday": "Lundi – Vendredi : 8h00 – 18h00",
+    "hoursWeekend": "Samedi – Dimanche : 9h00 – 17h00",
+    "hoursNote": "(Mettez à jour avec vos vrais horaires.)",
+    "contactTitle": "Contact",
+    "followTitle": "Suivez-nous"
+  },
+  "gallery": {
+    "title": "Galerie",
+    "subtitle": "Un aperçu de Cloud9",
+    "comingSoon": "Photos à venir.",
+    "alt": "Cloud9"
+  },
+  "loyalty": {
+    "title": "Fidélité",
+    "subtitle": "Collectez des points. Échangez des récompenses. Ressentez l'amour.",
+    "howItWorksTitle": "Comment ça marche",
+    "howItWorksText": "Visitez-nous au café, scannez le QR code au comptoir, entrez le code du jour affiché en magasin et réclamez vos points. Une réclamation par jour—chaque visite compte.",
+    "rewardsTitle": "Récompenses",
+    "rewardsText": "Accumulez vos points et échangez-les contre des réductions, de petits souvenirs ou une boisson signature offerte. Votre solde n'expire jamais.",
+    "claimButton": "Réclamer ma visite / Ouvrir l'app fidélité"
+  },
+  "loyaltyApp": {
+    "title": "Cloud9 Fidélité",
+    "yourBalance": "Votre solde",
+    "pts": "pts",
+    "claimToday": "Réclamer la visite d'aujourd'hui",
+    "rewardsTitle": "Récompenses",
+    "rewardsSubtitle": "Échangez vos points au café",
+    "loadingAccount": "Chargement de votre compte…",
+    "signIn": "Connexion"
+  },
+  "loyaltyClaim": {
+    "title": "Réclamez votre visite",
+    "subtitle": "Entrez le code du jour affiché au café pour collecter vos points.",
+    "dailyCode": "Code du jour",
+    "codePlaceholder": "ex. CLOUD9",
+    "claimPoints": "Réclamer les points",
+    "claiming": "Réclamation…",
+    "signInFirst": "Connectez-vous d'abord",
+    "pointsAdded": "Points ajoutés ! À la prochaine.",
+    "redirecting": "Redirection vers votre compte fidélité…",
+    "oneClaimNote": "Une réclamation par jour. Le code est visible au café.",
+    "scanNote": "Scannez le QR en magasin pour ouvrir cette page.",
+    "somethingWrong": "Une erreur s'est produite."
+  },
+  "loyaltyLogin": {
+    "title": "Connexion ou création de compte",
+    "subtitle": "Réclamez vos visites et gérez vos points fidélité.",
+    "email": "Email",
+    "password": "Mot de passe",
+    "confirmPassword": "Confirmer le mot de passe",
+    "signIn": "Connexion",
+    "signingIn": "Connexion…",
+    "createAccount": "Créer un compte",
+    "creatingAccount": "Création du compte…",
+    "newUser": "Nouveau chez Cloud9 ? Créez un compte",
+    "existingUser": "Déjà un compte ? Connectez-vous",
+    "checkEmail": "Vérifiez votre email pour confirmer votre compte, puis connectez-vous ci-dessous.",
+    "enterEmailPassword": "Veuillez entrer votre email et mot de passe pour créer un compte.",
+    "passwordsMismatch": "Les mots de passe ne correspondent pas.",
+    "passwordLength": "Le mot de passe doit contenir au moins 6 caractères."
+  },
+  "redeemModal": {
+    "title": "Échanger une récompense",
+    "pointsBalance": "{points} points · Votre solde : {balance} pts",
+    "showQr": "Montrer le QR au personnel",
+    "creating": "Création…",
+    "showQrNote": "Montrez ce QR au personnel. Les points seront déduits lors de la validation.",
+    "validNote": "Valide quelques minutes. Usage unique.",
+    "redemptionQr": "QR d'échange",
+    "couldNotCreate": "Impossible de créer l'échange"
+  },
+  "footer": {
+    "freshRoasted": "TORRÉFIÉ FRAIS AU QUOTIDIEN",
+    "locallySourced": "SOURCES LOCALES",
+    "warmWelcome": "BIENVEILLANT ACCUEIL",
+    "findUs": "Nous trouver",
+    "address": "123 Cloud St"
+  }
+}
