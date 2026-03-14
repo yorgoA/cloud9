@@ -88,7 +88,7 @@ export function RedeemModal({
               <button
                 type="button"
                 onClick={handleClose}
-                className="rounded-xl p-2 text-stone-500 hover:bg-cloud-200"
+                className="rounded-xl p-2 text-stone-500 hover:bg-coffee-hover"
                 aria-label={tCommon("close")}
               >
                 <X className="h-5 w-5" />

@@ -5,6 +5,7 @@ import { getWeekKey } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/server";
 import { getTranslations } from "next-intl/server";
 import { Link as LocaleLink } from "@/i18n/navigation";
+import { getSiteContact } from "@/lib/site-contact";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 60;
@@ -14,6 +15,7 @@ export default async function HomePage() {
   const tCommon = await getTranslations("common");
 
   const supabase = await createClient();
+  const contact = await getSiteContact(supabase);
   const weekKey = getWeekKey();
   const { data: mood } = await supabase
     .from("cloud9_moods")
@@ -30,7 +32,9 @@ export default async function HomePage() {
         <p className="mx-auto mt-2 max-w-lg font-sans text-base text-stone-600">
           {t("tagline")}
         </p>
-        <p className="mt-1 text-xs text-stone-500">{t("address")}</p>
+        <p className="mt-1 text-xs text-stone-500">
+          {[contact.address_line1, contact.address_line2].filter(Boolean).join(" · ")}
+        </p>
         <div className="mt-4 flex flex-wrap justify-center gap-3">
           <Button asChild size="default" variant="coffee">
             <LocaleLink href="/menu">{t("seeMenu")}</LocaleLink>

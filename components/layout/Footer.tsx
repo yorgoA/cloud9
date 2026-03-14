@@ -3,9 +3,7 @@ import { Cloud, Coffee, Leaf, Heart } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { getTranslations } from "next-intl/server";
 import { Link as LocaleLink } from "@/i18n/navigation";
-
-const INSTAGRAM_URL = "https://instagram.com/cloud9";
-const TIKTOK_URL = "https://tiktok.com/@cloud9";
+import { getSiteContact } from "@/lib/site-contact";
 
 const trustBadgeKeys = [
   { icon: Coffee, key: "freshRoasted" as const },
@@ -17,8 +15,10 @@ export async function Footer() {
   const t = await getTranslations("footer");
   const tCommon = await getTranslations("common");
 
-  let isAdmin = false;
   const supabase = await createClient();
+  const contact = await getSiteContact(supabase);
+
+  let isAdmin = false;
   const { data: { user } } = await supabase.auth.getUser();
   if (user) {
     const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -70,7 +70,7 @@ export async function Footer() {
               </span>
               <div className="flex gap-1">
                 <a
-                  href={INSTAGRAM_URL}
+                  href={contact.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex h-6 w-6 items-center justify-center rounded-full border border-stone-300 text-stone-600 hover:text-stone-800"
@@ -86,7 +86,7 @@ export async function Footer() {
                   </svg>
                 </a>
                 <a
-                  href={TIKTOK_URL}
+                  href={contact.tiktok}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex h-6 w-6 items-center justify-center rounded-full border border-stone-300 text-stone-600 hover:text-stone-800"
@@ -97,19 +97,22 @@ export async function Footer() {
                   </svg>
                 </a>
               </div>
-              <span className="text-[10px] text-stone-500">{t("address")}</span>
+              <span className="text-[10px] text-stone-500">
+                {contact.address_line1}
+                {contact.address_line2 ? `, ${contact.address_line2}` : ""}
+              </span>
             </div>
 
             <div className="flex items-center gap-2 text-[10px] text-stone-600">
               <a
-                href="mailto:hello@cloud9.cafe"
+                href={`mailto:${contact.email}`}
                 className="hover:text-stone-800"
               >
-                hello@cloud9.cafe
+                {contact.email}
               </a>
               <span className="text-stone-400">·</span>
-              <a href="tel:+1234567890" className="hover:text-stone-800">
-                +1 234 567 890
+              <a href={`tel:${contact.phone.replace(/\s/g, "")}`} className="hover:text-stone-800">
+                {contact.phone}
               </a>
               {isAdmin && (
                 <>

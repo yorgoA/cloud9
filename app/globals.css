@@ -59,3 +59,11 @@
 ::-webkit-scrollbar-thumb:hover {
   background: var(--sky-blue);
 }
+
+/* Admin QR print: single page, minimal layout */
+@media print {
+  html, body {
+    height: auto;
+    min-height: unset;
+  }
+}

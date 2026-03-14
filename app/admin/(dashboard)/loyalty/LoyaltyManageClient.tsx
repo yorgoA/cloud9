@@ -34,7 +34,7 @@ export function LoyaltyManageClient({ initialCustomers }: { initialCustomers: Cu
             <span className="font-medium text-stone-800">{c.points_balance} pts</span>
             <button
               type="button"
-              className="rounded-lg bg-cloud-200 px-2 py-1 text-sm hover:bg-cloud-300"
+              className="rounded-lg bg-cloud-200 px-2 py-1 text-sm hover:bg-coffee-hover"
               onClick={() => handleAdjust(c.id, 100)}
               disabled={!!adjusting}
             >
@@ -42,7 +42,7 @@ export function LoyaltyManageClient({ initialCustomers }: { initialCustomers: Cu
             </button>
             <button
               type="button"
-              className="rounded-lg bg-cloud-200 px-2 py-1 text-sm hover:bg-cloud-300"
+              className="rounded-lg bg-cloud-200 px-2 py-1 text-sm hover:bg-coffee-hover"
               onClick={() => handleAdjust(c.id, -100)}
               disabled={!!adjusting}
             >

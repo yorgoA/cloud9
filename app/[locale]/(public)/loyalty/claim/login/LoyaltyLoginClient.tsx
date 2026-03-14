@@ -169,7 +169,7 @@ export function LoyaltyLoginClient() {
             <button
               type="button"
               onClick={switchToSignUp}
-              className="rounded-2xl border border-latte-beige bg-soft-white/50 px-4 py-3 text-sm font-medium text-stone-600 transition-colors hover:bg-cloud-200/80 hover:text-stone-800"
+              className="rounded-2xl border border-latte-beige bg-soft-white/50 px-4 py-3 text-sm font-medium text-stone-600 transition-colors hover:bg-coffee-hover/80 hover:text-stone-800"
             >
               {t("newUser")}
             </button>

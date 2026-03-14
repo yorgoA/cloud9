@@ -1,12 +1,13 @@
 import { MapPin, Clock, Mail } from "lucide-react";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { getTranslations } from "next-intl/server";
-
-const INSTAGRAM_URL = "https://instagram.com/cloud9";
-const TIKTOK_URL = "https://tiktok.com/@cloud9";
+import { createClient } from "@/lib/supabase/server";
+import { getSiteContact } from "@/lib/site-contact";
 
 export default async function VisitPage() {
   const t = await getTranslations("visit");
+  const supabase = await createClient();
+  const contact = await getSiteContact(supabase);
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-24">
@@ -26,11 +27,11 @@ export default async function VisitPage() {
                 {t("addressTitle")}
               </h2>
               <p className="mt-2 font-sans text-stone-600">
-                {t("addressLine1")}
+                {contact.address_line1}
                 <br />
-                {t("addressLine2")}
+                {contact.address_line2}
                 <br />
-                {t("addressLine3")}
+                {contact.address_line3}
               </p>
               <p className="mt-2 text-sm text-stone-500">{t("addressNote")}</p>
             </div>
@@ -63,14 +64,14 @@ export default async function VisitPage() {
               </h2>
               <p className="mt-2 font-sans text-stone-600">
                 <a
-                  href="mailto:hello@cloud9.cafe"
+                  href={`mailto:${contact.email}`}
                   className="hover:text-stone-800"
                 >
-                  hello@cloud9.cafe
+                  {contact.email}
                 </a>
                 <br />
-                <a href="tel:+1234567890" className="hover:text-stone-800">
-                  +1 234 567 890
+                <a href={`tel:${contact.phone.replace(/\s/g, "")}`} className="hover:text-stone-800">
+                  {contact.phone}
                 </a>
               </p>
             </div>
@@ -88,7 +89,7 @@ export default async function VisitPage() {
               </h2>
               <p className="mt-2 flex flex-wrap gap-4 font-sans text-stone-600">
                 <a
-                  href={INSTAGRAM_URL}
+                  href={contact.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-stone-800"
@@ -96,7 +97,7 @@ export default async function VisitPage() {
                   Instagram
                 </a>
                 <a
-                  href={TIKTOK_URL}
+                  href={contact.tiktok}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-stone-800"

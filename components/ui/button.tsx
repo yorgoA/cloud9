@@ -13,12 +13,12 @@ const buttonVariants = cva(
         default:
           "bg-stone-800 text-cream shadow-soft hover:bg-stone-700 hover:shadow-lg",
         secondary:
-          "bg-latte-beige text-stone-800 hover:bg-cloud-300",
+          "bg-latte-beige text-stone-800 hover:bg-coffee-hover",
         cloud:
           "bg-soft-white/90 text-stone-800 border border-white/60 shadow-soft hover:bg-white hover:shadow-glass",
         coffee:
           "bg-[#5D4037] text-cream shadow-soft hover:bg-[#6F4E37] disabled:bg-[#5D4037]/70 disabled:opacity-100",
-        ghost: "hover:bg-cloud-200/80 text-stone-800",
+        ghost: "hover:bg-coffee-hover/80 text-stone-800",
         link: "text-sky-blue underline-offset-4 hover:underline",
       },
       size: {

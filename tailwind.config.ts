@@ -18,6 +18,7 @@ const config: Config = {
         "soft-white": "#FAF9F7",
         "coffee-brown": "#5D4037",
         "coffee-brown-light": "#6F4E37",
+        "coffee-hover": "#EDE4DC",
         cloud: {
           50: "#FDFBFA",
           100: "#F8F4F0",

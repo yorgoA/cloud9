@@ -17,7 +17,7 @@ export function LocaleSwitcher() {
     <button
       type="button"
       onClick={switchLocale}
-      className="rounded-xl px-3 py-2 text-sm font-medium text-stone-600 transition-colors hover:bg-cloud-200/80 hover:text-stone-800"
+      className="rounded-xl px-3 py-2 text-sm font-medium text-stone-600 transition-colors hover:bg-coffee-hover/80 hover:text-stone-800"
       aria-label={locale === "en" ? "Passer en français" : "Switch to English"}
     >
       {locale === "en" ? "FR" : "EN"}

@@ -19,7 +19,9 @@ npm install
 ### 2. Supabase
 
 1. Create a project at [supabase.com](https://supabase.com).
-2. Run the SQL in `supabase/migrations/001_initial_schema.sql` in the SQL Editor.
+2. Run the SQL migrations in order in the SQL Editor:
+   - `supabase/migrations/001_initial_schema.sql`
+   - `supabase/migrations/002_site_contact.sql`
 3. In Storage, create a **public** bucket named `gallery` (for gallery images).
 4. Copy your project URL and keys into `.env.local`:
 
@@ -63,7 +65,7 @@ The workflow in `.github/workflows/daily-code-reminder.yml` runs at 21:00 UTC an
 - **Weekly Cloud9 mood:** Editable message on the homepage (admin → Cloud9 mood)
 - **Loyalty:** Customers claim one visit per day (QR + daily code), earn points, redeem rewards
 - **Staff:** Scan a customer’s redemption QR at `/staff/validate` to validate and deduct points
-- **Admin:** Menu, gallery, rewards, loyalty (customers/points), daily code, weekly QR, mood
+- **Admin:** Menu, gallery, rewards, loyalty (customers/points), daily code, weekly QR, mood, addresses (address, phone, email, Instagram, TikTok)
 
 ## Project structure
 

@@ -15,8 +15,10 @@ export default async function AdminQrPage() {
   }
   return (
     <div>
-      <h1 className="font-serif text-2xl font-medium text-stone-800">Weekly QR</h1>
-      <p className="mt-1 text-stone-600">Generate the in-store QR that links to the loyalty claim page for this week.</p>
+      <div className="print:hidden">
+        <h1 className="font-serif text-2xl font-medium text-stone-800">Weekly QR</h1>
+        <p className="mt-1 text-stone-600">Generate the in-store QR that links to the loyalty claim page for this week.</p>
+      </div>
       <QrManageClient weekKey={weekKey} currentToken={currentToken} />
     </div>
   );

@@ -65,8 +65,8 @@ export function Header() {
                 className={cn(
                   "rounded-xl px-4 py-2 text-sm font-medium transition-colors",
                   pathname === link.href
-                    ? "bg-powder-blue/30 text-stone-800"
-                    : "text-stone-600 hover:bg-cloud-200/80 hover:text-stone-800"
+                    ? "bg-coffee-hover text-stone-800"
+                    : "text-stone-600 hover:bg-coffee-hover/80 hover:text-stone-800"
                 )}
               >
                 {t(link.key)}
@@ -85,7 +85,7 @@ export function Header() {
               <button
                 type="button"
                 onClick={handleSignOut}
-                className="flex items-center gap-1.5 rounded-xl px-4 py-2 text-sm font-medium text-stone-600 transition-colors hover:bg-cloud-200/80 hover:text-stone-800"
+                className="flex items-center gap-1.5 rounded-xl px-4 py-2 text-sm font-medium text-stone-600 transition-colors hover:bg-coffee-hover/80 hover:text-stone-800"
               >
                 <LogOut className="h-4 w-4" />
                 {t("signOut")}
@@ -98,7 +98,7 @@ export function Header() {
           )}
           <button
             type="button"
-            className="md:hidden rounded-xl p-2 text-stone-600 hover:bg-cloud-200"
+            className="md:hidden rounded-xl p-2 text-stone-600 hover:bg-coffee-hover"
             onClick={() => setOpen((o) => !o)}
             aria-label="Menu"
           >
@@ -120,7 +120,7 @@ export function Header() {
                 <Link
                   href="/loyalty/app"
                   onClick={() => setOpen(false)}
-                  className="rounded-xl px-4 py-3 text-sm font-medium hover:bg-cloud-200/80"
+                  className="rounded-xl px-4 py-3 text-sm font-medium hover:bg-coffee-hover/80"
                 >
                   {t("myRewards")}
                 </Link>
@@ -130,7 +130,7 @@ export function Header() {
                     handleSignOut();
                     setOpen(false);
                   }}
-                  className="flex items-center gap-2 rounded-xl px-4 py-3 text-left text-sm font-medium hover:bg-cloud-200/80"
+                  className="flex items-center gap-2 rounded-xl px-4 py-3 text-left text-sm font-medium hover:bg-coffee-hover/80"
                 >
                   <LogOut className="h-4 w-4" />
                   {t("signOut")}
@@ -157,8 +157,8 @@ export function Header() {
                 className={cn(
                   "rounded-xl px-4 py-3 text-sm font-medium",
                   pathname === link.href
-                    ? "bg-powder-blue/30"
-                    : "hover:bg-cloud-200/80"
+                    ? "bg-coffee-hover"
+                    : "hover:bg-coffee-hover/80"
                 )}
               >
                 {t(link.key)}

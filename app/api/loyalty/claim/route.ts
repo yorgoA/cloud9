@@ -66,9 +66,15 @@ export async function POST(request: Request) {
   }
 }
 
+const CAFE_TIMEZONE = "Europe/Paris";
+
+function getDateInTimezone(tz: string): string {
+  return new Date().toLocaleDateString("en-CA", { timeZone: tz });
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function addClaim(admin: any, customerId: string, currentBalance: number) {
-  const today = new Date().toISOString().slice(0, 10);
+  const today = getDateInTimezone(CAFE_TIMEZONE);
 
   const { data: existing } = await admin
     .from("loyalty_claims")
