@@ -41,7 +41,7 @@ export function DailyCodeClient({ initialCode }: { initialCode: string | null })
           value={code}
           onChange={(e) => setCode(e.target.value.toUpperCase())}
           placeholder="e.g. CLOUD9"
-          className="flex-1 rounded-2xl border border-latte-beige bg-soft-white/80 px-4 py-3 font-mono text-lg focus:border-sky-blue focus:outline-none focus:ring-2 focus:ring-sky-blue/20"
+          className="min-h-[44px] flex-1 rounded-2xl border border-latte-beige bg-soft-white/80 px-4 py-3 font-mono text-base focus:border-sky-blue focus:outline-none focus:ring-2 focus:ring-sky-blue/20 sm:text-lg"
           maxLength={12}
         />
         <Button variant="secondary" onClick={() => setCode(generateRandomCode(6))}>

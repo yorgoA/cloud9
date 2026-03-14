@@ -19,7 +19,7 @@ export default function AdminDashboardPage() {
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {links.map((item) => (
           <Link key={item.href} href={item.href}>
-            <GlassCard className="flex items-center gap-4 p-6 transition-shadow hover:shadow-glass">
+            <GlassCard className="flex min-h-[56px] items-center gap-4 p-4 transition-shadow hover:shadow-glass sm:p-6">
               <item.icon className="h-8 w-8 text-sky-blue" />
               <span className="font-medium text-stone-800">{item.label}</span>
             </GlassCard>

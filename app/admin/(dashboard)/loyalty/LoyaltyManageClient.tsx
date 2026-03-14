@@ -30,24 +30,26 @@ export function LoyaltyManageClient({ initialCustomers }: { initialCustomers: Cu
             {c.email && <p className="text-sm text-stone-600">{c.email}</p>}
             <p className="text-xs text-stone-500">Joined {formatDate(c.created_at)}</p>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <span className="font-medium text-stone-800">{c.points_balance} pts</span>
-            <button
-              type="button"
-              className="rounded-lg bg-cloud-200 px-2 py-1 text-sm hover:bg-coffee-hover"
-              onClick={() => handleAdjust(c.id, 100)}
-              disabled={!!adjusting}
-            >
-              +100
-            </button>
-            <button
-              type="button"
-              className="rounded-lg bg-cloud-200 px-2 py-1 text-sm hover:bg-coffee-hover"
-              onClick={() => handleAdjust(c.id, -100)}
-              disabled={!!adjusting}
-            >
-              -100
-            </button>
+            <div className="flex gap-1">
+              <button
+                type="button"
+                className="min-h-[44px] min-w-[44px] rounded-xl bg-cloud-200 px-3 py-2 text-sm font-medium hover:bg-coffee-hover active:bg-coffee-hover"
+                onClick={() => handleAdjust(c.id, 100)}
+                disabled={!!adjusting}
+              >
+                +100
+              </button>
+              <button
+                type="button"
+                className="min-h-[44px] min-w-[44px] rounded-xl bg-cloud-200 px-3 py-2 text-sm font-medium hover:bg-coffee-hover active:bg-coffee-hover"
+                onClick={() => handleAdjust(c.id, -100)}
+                disabled={!!adjusting}
+              >
+                -100
+              </button>
+            </div>
           </div>
         </GlassCard>
       ))}

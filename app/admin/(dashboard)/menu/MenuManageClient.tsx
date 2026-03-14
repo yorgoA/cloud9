@@ -47,7 +47,7 @@ export function MenuManageClient({ initialItems }: { initialItems: MenuItem[] })
       <Button onClick={handleAdd}>Add item</Button>
       {items.map((item) => (
         <GlassCard key={item.id} className="p-4">
-          <div className="grid gap-2 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <input
               className="rounded-xl border border-latte-beige bg-white px-3 py-2 text-sm"
               value={item.name}
@@ -60,7 +60,7 @@ export function MenuManageClient({ initialItems }: { initialItems: MenuItem[] })
               onChange={(e) => setItems((prev) => prev.map((i) => (i.id === item.id ? { ...i, category: e.target.value || null } : i)))}
             />
             <input
-              className="rounded-xl border border-latte-beige bg-white px-3 py-2 text-sm"
+              className="rounded-xl border border-latte-beige bg-white px-3 py-2.5 text-base sm:col-span-2"
               placeholder="Description"
               value={item.description ?? ""}
               onChange={(e) => setItems((prev) => prev.map((i) => (i.id === item.id ? { ...i, description: e.target.value || null } : i)))}
@@ -73,7 +73,7 @@ export function MenuManageClient({ initialItems }: { initialItems: MenuItem[] })
               onChange={(e) => setItems((prev) => prev.map((i) => (i.id === item.id ? { ...i, price_cents: e.target.value ? parseInt(e.target.value, 10) : null } : i)))}
             />
           </div>
-          <div className="mt-2 flex items-center gap-2">
+          <div className="mt-3 flex flex-wrap items-center gap-2">
             <label className="flex items-center gap-1 text-sm">
               <input
                 type="checkbox"
