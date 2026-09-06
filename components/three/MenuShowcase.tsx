@@ -77,7 +77,7 @@ export function MenuShowcase() {
           </Button>
         </div>
       </div>
-      <SpinningCup texture={CATEGORIES[active].texture} className="h-52 w-full sm:h-64" />
+      <SpinningCup texture={CATEGORIES[active].texture} className="h-64 w-full sm:h-80" />
     </section>
   );
 }
