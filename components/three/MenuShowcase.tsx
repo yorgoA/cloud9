@@ -12,14 +12,7 @@ import { cn } from "@/lib/utils";
 const CATEGORIES: { key: string; texture: CupTexture }[] = [
   {
     key: "cloud",
-    texture: {
-      type: "bands",
-      colors: [
-        [0, "#BED4E5"],
-        [0.45, "#DCEAF2"],
-        [1, "#F2EFE6"],
-      ],
-    },
+    texture: { type: "photo", src: "/brand/cup-cloud.png" },
   },
   {
     key: "matcha",
@@ -27,14 +20,7 @@ const CATEGORIES: { key: string; texture: CupTexture }[] = [
   },
   {
     key: "latte",
-    texture: {
-      type: "bands",
-      colors: [
-        [0, "#F2EFE6"],
-        [0.4, "#D6C7B3"],
-        [1, "#8B5E3C"],
-      ],
-    },
+    texture: { type: "photo", src: "/brand/cup-latte.png" },
   },
 ];
 
