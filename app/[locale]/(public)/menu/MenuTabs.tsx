@@ -43,25 +43,27 @@ function CloudTab({
       type="button"
       onClick={onClick}
       className={cn(
-        "relative flex shrink-0 items-center justify-center transition-transform hover:-translate-y-0.5",
-        size === "lg" ? "h-16 w-28 sm:h-20 sm:w-36" : "h-12 w-24 sm:h-14 sm:w-28"
+        "relative inline-flex shrink-0 items-center justify-center transition-transform hover:-translate-y-0.5",
+        size === "lg"
+          ? "min-h-[64px] px-8 py-4 sm:min-h-[76px] sm:px-9"
+          : "min-h-[48px] px-6 py-3 sm:min-h-[56px] sm:px-7"
       )}
     >
       <img
         src="/brand/cloud-beige.png"
         alt=""
-        className="absolute inset-0 h-full w-full object-contain drop-shadow-[0_3px_8px_rgba(0,0,0,0.12)]"
+        className="absolute inset-0 h-full w-full object-fill drop-shadow-[0_3px_8px_rgba(0,0,0,0.12)]"
       />
       <motion.img
         src="/brand/cloud-fill.png"
         alt=""
         animate={{ opacity: active ? 1 : 0 }}
         transition={{ duration: 0.25 }}
-        className="absolute inset-0 h-full w-full object-contain drop-shadow-[0_3px_8px_rgba(0,0,0,0.12)]"
+        className="absolute inset-0 h-full w-full object-fill drop-shadow-[0_3px_8px_rgba(0,0,0,0.12)]"
       />
       <span
         className={cn(
-          "absolute left-[52%] top-[52%] -translate-x-1/2 -translate-y-1/2 whitespace-nowrap font-bold uppercase tracking-wide transition-colors",
+          "relative whitespace-nowrap font-bold uppercase tracking-wide transition-colors",
           size === "lg" ? "text-sm sm:text-base" : "text-xs sm:text-sm",
           active ? "text-espresso" : "text-espresso/60"
         )}
@@ -81,7 +83,7 @@ export function MenuTabs({ groups }: { groups: MenuGroup[] }) {
 
   return (
     <div>
-      <div className="flex flex-wrap justify-center gap-1 sm:gap-3">
+      <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
         {groups.map((g, i) => (
           <CloudTab
             key={g.label}
@@ -97,7 +99,7 @@ export function MenuTabs({ groups }: { groups: MenuGroup[] }) {
 
       {group.subs.length > 1 && (
         <div className="-mx-4 mt-2 overflow-x-auto px-4 sm:mx-0 sm:overflow-visible sm:px-0">
-          <div className="flex w-max gap-1 sm:w-full sm:flex-wrap sm:justify-center">
+          <div className="flex w-max gap-2 sm:w-full sm:flex-wrap sm:justify-center sm:gap-3">
             {group.subs.map((s, i) => (
               <CloudTab
                 key={s.label}
