@@ -45,7 +45,9 @@ export default async function HomePage() {
             {t("tagline")}
           </p>
           <p className="text-xs font-medium text-stone-500">
-            {[contact.address_line1, contact.address_line2].filter(Boolean).join(" · ")}
+            {[contact.address_line1, contact.address_line2, contact.address_line3]
+              .filter(Boolean)
+              .join(" · ")}
           </p>
         </div>
         <Image

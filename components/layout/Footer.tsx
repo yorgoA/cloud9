@@ -40,7 +40,7 @@ export async function Footer() {
 
   return (
     <footer className="shrink-0 max-h-[10vh] border-t-2 border-espresso bg-espresso">
-      <div className="border-b border-cream/15 py-1">
+      <div className="border-b border-cream/15 py-0.5">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-3 px-4 sm:px-6">
           {trustBadgeKeys.map(({ icon: Icon, key }) => (
             <div
@@ -54,7 +54,7 @@ export async function Footer() {
         </div>
       </div>
 
-      <div className="py-2">
+      <div className="py-1.5">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-1 text-center sm:justify-between sm:text-left">
             <LocaleLink href="/" className="flex items-center" aria-label={tCommon("cloud9")}>
@@ -63,7 +63,7 @@ export async function Footer() {
                 alt={tCommon("cloud9")}
                 width={120}
                 height={82}
-                className="h-8 w-auto"
+                className="h-6 w-auto"
               />
             </LocaleLink>
 
@@ -101,8 +101,9 @@ export async function Footer() {
                 </a>
               </div>
               <span className="text-[10px] text-cream/60">
-                {contact.address_line1}
-                {contact.address_line2 ? `, ${contact.address_line2}` : ""}
+                {[contact.address_line1, contact.address_line2, contact.address_line3]
+                  .filter(Boolean)
+                  .join(", ")}
               </span>
             </div>
 
@@ -128,7 +129,7 @@ export async function Footer() {
             </div>
           </div>
 
-          <p className="mt-1.5 text-center text-[9px] text-cream/40">
+          <p className="mt-1 text-center text-[9px] text-cream/40">
             © {new Date().getFullYear()} {tCommon("cloud9")}
           </p>
         </div>
