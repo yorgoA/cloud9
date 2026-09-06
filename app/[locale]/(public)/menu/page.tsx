@@ -43,6 +43,10 @@ export default async function MenuPage() {
     .order("category")
     .order("sort_order");
 
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const imageUrl = (path: string | null) =>
+    path ? `${supabaseUrl}/storage/v1/object/public/menu-items/${path}` : null;
+
   const byCategory = (items ?? []).reduce<Record<string, MenuItem[]>>(
     (acc, item) => {
       const cat = item.category ?? "";
@@ -64,6 +68,7 @@ export default async function MenuPage() {
           name: (locale === "fr" && item.name_fr) || item.name,
           description: (locale === "fr" && item.description_fr) || item.description,
           price_cents: item.price_cents,
+          imageUrl: imageUrl(item.image_path),
         })),
       })),
   })).filter((group) => group.subs.length > 0);

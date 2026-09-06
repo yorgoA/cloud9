@@ -88,6 +88,7 @@ export interface MenuItem {
   description_fr: string | null;
   price_cents: number | null;
   category: string | null;
+  image_path: string | null;
   sort_order: number;
   active: boolean;
   created_at: string;

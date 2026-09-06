@@ -28,6 +28,7 @@ export async function POST(request: Request) {
       description_fr: toNullableString(body.description_fr),
       price_cents: toNullableInt(body.price_cents),
       category: toNullableString(body.category),
+      image_path: toNullableString(body.image_path),
       sort_order: toNullableInt(body.sort_order) ?? 0,
       active: body.active !== false,
     })
@@ -52,6 +53,7 @@ export async function PUT(request: Request) {
       description_fr: toNullableString(body.description_fr),
       price_cents: toNullableInt(body.price_cents),
       category: toNullableString(body.category),
+      image_path: toNullableString(body.image_path),
       sort_order: toNullableInt(body.sort_order) ?? 0,
       active: body.active !== false,
       updated_at: new Date().toISOString(),
