@@ -22,76 +22,90 @@ interface MenuGroup {
   subs: MenuSubcategory[];
 }
 
-const TILE_SHAPES = ["cloud-tile-1", "cloud-tile-2", "cloud-tile-3"];
-
 function formatPrice(cents: number | null): string {
   if (cents == null) return "—";
   return `€${(cents / 100).toFixed(2)}`;
 }
 
+function CloudTab({
+  label,
+  active,
+  onClick,
+  size = "lg",
+}: {
+  label: string;
+  active: boolean;
+  onClick: () => void;
+  size?: "lg" | "sm";
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={cn(
+        "relative flex shrink-0 items-center justify-center transition-transform hover:-translate-y-0.5",
+        size === "lg" ? "h-16 w-28 sm:h-20 sm:w-36" : "h-12 w-24 sm:h-14 sm:w-28"
+      )}
+    >
+      <img
+        src="/brand/cloud-beige.png"
+        alt=""
+        className="absolute inset-0 h-full w-full object-contain drop-shadow-[0_3px_8px_rgba(0,0,0,0.12)]"
+      />
+      <motion.img
+        src="/brand/cloud-fill.png"
+        alt=""
+        animate={{ opacity: active ? 1 : 0 }}
+        transition={{ duration: 0.25 }}
+        className="absolute inset-0 h-full w-full object-contain drop-shadow-[0_3px_8px_rgba(0,0,0,0.12)]"
+      />
+      <span
+        className={cn(
+          "relative font-bold uppercase tracking-wide transition-colors",
+          size === "lg" ? "text-sm sm:text-base" : "text-xs sm:text-sm",
+          active ? "text-espresso" : "text-espresso/60"
+        )}
+      >
+        {label}
+      </span>
+    </button>
+  );
+}
+
 export function MenuTabs({ groups }: { groups: MenuGroup[] }) {
   const [activeGroup, setActiveGroup] = useState(0);
   const [activeSub, setActiveSub] = useState(0);
-  const [revealedId, setRevealedId] = useState<string | null>(null);
 
   const group = groups[activeGroup];
   const sub = group.subs[activeSub];
 
   return (
     <div>
-      <div className="flex flex-wrap justify-center gap-3">
+      <div className="flex flex-wrap justify-center gap-1 sm:gap-3">
         {groups.map((g, i) => (
-          <button
+          <CloudTab
             key={g.label}
-            type="button"
+            label={g.label}
+            active={i === activeGroup}
             onClick={() => {
               setActiveGroup(i);
               setActiveSub(0);
-              setRevealedId(null);
             }}
-            className={cn(
-              "relative rounded-full px-6 py-2.5 text-base font-bold uppercase tracking-wide transition-colors",
-              i === activeGroup ? "text-cream" : "text-espresso hover:text-espresso/70"
-            )}
-          >
-            {i === activeGroup ? (
-              <motion.span
-                layoutId="menu-group-pill"
-                className="absolute inset-0 rounded-full border-2 border-espresso bg-dusty-blue shadow-hard-sm"
-                transition={{ type: "spring", stiffness: 400, damping: 32 }}
-              />
-            ) : (
-              <span className="absolute inset-0 rounded-full border-2 border-espresso/30 bg-cream" />
-            )}
-            <span className="relative">{g.label}</span>
-          </button>
+          />
         ))}
       </div>
 
       {group.subs.length > 1 && (
-        <div className="-mx-4 mt-5 overflow-x-auto px-4 sm:mx-0 sm:px-0">
+        <div className="-mx-4 mt-2 overflow-x-auto px-4 sm:mx-0 sm:overflow-visible sm:px-0">
           <div className="flex w-max gap-1 sm:w-full sm:flex-wrap sm:justify-center">
             {group.subs.map((s, i) => (
-              <button
+              <CloudTab
                 key={s.label}
-                type="button"
-                onClick={() => {
-                  setActiveSub(i);
-                  setRevealedId(null);
-                }}
-                className="relative shrink-0 px-3.5 py-1.5 text-sm font-semibold transition-colors"
-              >
-                {i === activeSub && (
-                  <motion.span
-                    layoutId="menu-sub-underline"
-                    className="absolute inset-x-2 -bottom-0.5 h-0.5 rounded-full bg-espresso"
-                    transition={{ type: "spring", stiffness: 400, damping: 32 }}
-                  />
-                )}
-                <span className={cn("relative", i === activeSub ? "text-espresso" : "text-stone-500 hover:text-espresso")}>
-                  {s.label}
-                </span>
-              </button>
+                label={s.label}
+                active={i === activeSub}
+                onClick={() => setActiveSub(i)}
+                size="sm"
+              />
             ))}
           </div>
         </div>
@@ -104,51 +118,33 @@ export function MenuTabs({ groups }: { groups: MenuGroup[] }) {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.25, ease: "easeOut" }}
-          className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
+          className="mt-8 space-y-3"
         >
-          {sub.items.map((item, i) => {
-            const revealed = revealedId === item.id && !!item.imageUrl;
-            return (
-              <motion.div
-                key={item.id}
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: Math.min(i, 8) * 0.04, duration: 0.35, ease: "easeOut" }}
-                onMouseEnter={() => item.imageUrl && setRevealedId(item.id)}
-                onMouseLeave={() => setRevealedId((cur) => (cur === item.id ? null : cur))}
-                onClick={() => item.imageUrl && setRevealedId((cur) => (cur === item.id ? null : item.id))}
-                className={cn(
-                  "relative min-h-[220px] overflow-hidden border-2 border-espresso bg-cream shadow-hard transition-transform duration-200",
-                  TILE_SHAPES[i % TILE_SHAPES.length],
-                  item.imageUrl && "cursor-pointer hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-hard-lg"
+          {sub.items.map((item) => (
+            <div
+              key={item.id}
+              className="hard-card hard-card-hover flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between sm:p-5"
+            >
+              <div>
+                <p className="font-medium text-espresso">{item.name}</p>
+                {item.description && (
+                  <p className="mt-1 text-sm text-stone-600">{item.description}</p>
                 )}
-              >
-                <motion.div
-                  animate={{ opacity: revealed ? 0 : 1 }}
-                  transition={{ duration: 0.3 }}
-                  className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-gradient-to-b from-white to-powder-blue/30 p-5 text-center"
-                >
-                  <p className="font-serif text-lg font-medium text-espresso">{item.name}</p>
-                  {item.description && (
-                    <p className="line-clamp-4 text-sm text-stone-600">{item.description}</p>
-                  )}
-                  <p className="mt-1 font-sans font-semibold text-espresso">
-                    {formatPrice(item.price_cents)}
-                  </p>
-                </motion.div>
-
+              </div>
+              <div className="flex items-center gap-3 sm:shrink-0">
                 {item.imageUrl && (
-                  <motion.img
+                  <img
                     src={item.imageUrl}
                     alt={item.name}
-                    animate={{ opacity: revealed ? 1 : 0, scale: revealed ? 1 : 1.06 }}
-                    transition={{ duration: 0.3 }}
-                    className="absolute inset-0 h-full w-full object-cover"
+                    className="h-16 w-16 rounded-2xl border-2 border-espresso object-cover sm:h-20 sm:w-20"
                   />
                 )}
-              </motion.div>
-            );
-          })}
+                <p className="font-sans font-semibold text-espresso">
+                  {formatPrice(item.price_cents)}
+                </p>
+              </div>
+            </div>
+          ))}
         </motion.div>
       </AnimatePresence>
     </div>
