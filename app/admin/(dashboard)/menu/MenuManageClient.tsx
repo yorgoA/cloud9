@@ -17,7 +17,9 @@ export function MenuManageClient({ initialItems }: { initialItems: MenuItem[] })
       body: JSON.stringify({
         id: item.id,
         name: item.name,
+        name_fr: item.name_fr,
         description: item.description,
+        description_fr: item.description_fr,
         price_cents: item.price_cents,
         category: item.category,
         sort_order: item.sort_order,
@@ -34,7 +36,7 @@ export function MenuManageClient({ initialItems }: { initialItems: MenuItem[] })
       body: JSON.stringify({ name: "New item", category: "Drinks", sort_order: items.length }),
     });
     const data = await res.json();
-    if (data.id) setItems((prev) => [...prev, { ...data, name: "New item", description: null, price_cents: null, category: "Drinks", sort_order: items.length, active: true, created_at: "", updated_at: "" }]);
+    if (data.id) setItems((prev) => [...prev, { ...data, name: "New item", name_fr: null, description: null, description_fr: null, price_cents: null, category: "Drinks", sort_order: items.length, active: true, created_at: "", updated_at: "" }]);
   };
 
   const handleDelete = async (id: string) => {
@@ -50,20 +52,33 @@ export function MenuManageClient({ initialItems }: { initialItems: MenuItem[] })
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <input
               className="rounded-xl border border-latte-beige bg-white px-3 py-2 text-sm"
+              placeholder="Name (EN)"
               value={item.name}
               onChange={(e) => setItems((prev) => prev.map((i) => (i.id === item.id ? { ...i, name: e.target.value } : i)))}
+            />
+            <input
+              className="rounded-xl border border-latte-beige bg-white px-3 py-2 text-sm"
+              placeholder="Nom (FR)"
+              value={item.name_fr ?? ""}
+              onChange={(e) => setItems((prev) => prev.map((i) => (i.id === item.id ? { ...i, name_fr: e.target.value || null } : i)))}
+            />
+            <input
+              className="rounded-xl border border-latte-beige bg-white px-3 py-2.5 text-base"
+              placeholder="Description (EN)"
+              value={item.description ?? ""}
+              onChange={(e) => setItems((prev) => prev.map((i) => (i.id === item.id ? { ...i, description: e.target.value || null } : i)))}
+            />
+            <input
+              className="rounded-xl border border-latte-beige bg-white px-3 py-2.5 text-base"
+              placeholder="Description (FR)"
+              value={item.description_fr ?? ""}
+              onChange={(e) => setItems((prev) => prev.map((i) => (i.id === item.id ? { ...i, description_fr: e.target.value || null } : i)))}
             />
             <input
               className="rounded-xl border border-latte-beige bg-white px-3 py-2 text-sm"
               placeholder="Category"
               value={item.category ?? ""}
               onChange={(e) => setItems((prev) => prev.map((i) => (i.id === item.id ? { ...i, category: e.target.value || null } : i)))}
-            />
-            <input
-              className="rounded-xl border border-latte-beige bg-white px-3 py-2.5 text-base sm:col-span-2"
-              placeholder="Description"
-              value={item.description ?? ""}
-              onChange={(e) => setItems((prev) => prev.map((i) => (i.id === item.id ? { ...i, description: e.target.value || null } : i)))}
             />
             <input
               type="number"

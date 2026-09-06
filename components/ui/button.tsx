@@ -17,7 +17,11 @@ const buttonVariants = cva(
         cloud:
           "bg-soft-white/90 text-stone-800 border border-white/60 shadow-soft hover:bg-white hover:shadow-glass",
         coffee:
-          "bg-[#5D4037] text-cream shadow-soft hover:bg-[#6F4E37] disabled:bg-[#5D4037]/70 disabled:opacity-100",
+          "bg-espresso text-cream shadow-soft hover:bg-coffee-brown-light disabled:bg-espresso/70 disabled:opacity-100",
+        bold:
+          "rounded-2xl border-2 border-espresso bg-dusty-blue text-cream shadow-hard hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-hard-lg active:translate-x-0 active:translate-y-0 active:shadow-none disabled:hover:translate-x-0 disabled:hover:translate-y-0",
+        "bold-outline":
+          "rounded-2xl border-2 border-espresso bg-cream text-espresso shadow-hard hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-hard-lg active:translate-x-0 active:translate-y-0 active:shadow-none disabled:hover:translate-x-0 disabled:hover:translate-y-0",
         ghost: "hover:bg-coffee-hover/80 text-stone-800",
         link: "text-sky-blue underline-offset-4 hover:underline",
       },

@@ -7,10 +7,10 @@ export default async function ConceptPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-24">
       <header className="text-center">
-        <h1 className="font-serif text-4xl font-medium text-[#5D4037] sm:text-5xl">
+        <h1 className="font-serif text-4xl font-medium text-espresso sm:text-5xl">
           {t("title")}
         </h1>
-        <p className="mt-4 font-sans text-[#5D4037]">{t("subtitle")}</p>
+        <p className="mt-4 font-sans text-espresso">{t("subtitle")}</p>
       </header>
 
       <div className="mt-16 space-y-8">

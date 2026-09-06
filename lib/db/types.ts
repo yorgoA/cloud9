@@ -83,7 +83,9 @@ export interface Cloud9Mood {
 export interface MenuItem {
   id: string;
   name: string;
+  name_fr: string | null;
   description: string | null;
+  description_fr: string | null;
   price_cents: number | null;
   category: string | null;
   sort_order: number;

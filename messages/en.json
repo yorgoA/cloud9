@@ -30,7 +30,12 @@
     "loyaltyCardTitle": "Loyalty",
     "loyaltyCardDesc": "Collect points with every visit and redeem rewards.",
     "visitCardTitle": "Visit Us",
-    "visitCardDesc": "Find our location, opening hours, and how to reach us."
+    "visitCardDesc": "Find our location, opening hours, and how to reach us.",
+    "menuShowcase": {
+      "cloud": { "name": "Cloud Series", "desc": "Coconut water, layered and finished with a cloud of flavored foam." },
+      "matcha": { "name": "Matcha Bar", "desc": "Whisked with an organic Okumidori matcha, straight from Japan." },
+      "latte": { "name": "Lattes", "desc": "Espresso and milk, softened with vanilla, hazelnut, or salted caramel." }
+    }
   },
   "concept": {
     "title": "Our concept",

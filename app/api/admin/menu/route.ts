@@ -21,7 +21,9 @@ export async function POST(request: Request) {
   const body = await request.json();
   const { data, error } = await admin.from("menu_items").insert({
     name: body.name ?? "New item",
+    name_fr: body.name_fr ?? null,
     description: body.description ?? null,
+    description_fr: body.description_fr ?? null,
     price_cents: body.price_cents ?? null,
     category: body.category ?? null,
     sort_order: body.sort_order ?? 0,
@@ -38,7 +40,9 @@ export async function PUT(request: Request) {
   const body = await request.json();
   const { error } = await admin.from("menu_items").update({
     name: body.name,
+    name_fr: body.name_fr ?? null,
     description: body.description ?? null,
+    description_fr: body.description_fr ?? null,
     price_cents: body.price_cents ?? null,
     category: body.category ?? null,
     sort_order: body.sort_order ?? 0,

@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, DM_Sans } from "next/font/google";
+import { Fredoka, DM_Sans } from "next/font/google";
 import "./globals.css";
 
-const cormorant = Cormorant_Garamond({
+const fredoka = Fredoka({
   subsets: ["latin"],
-  variable: "--font-cormorant",
+  variable: "--font-display",
   display: "swap",
-  weight: ["300", "400", "500", "600"],
+  weight: ["500", "600", "700"],
 });
 
 const dmSans = DM_Sans({
@@ -28,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${dmSans.variable}`}>
+    <html lang="en" className={`${fredoka.variable} ${dmSans.variable}`}>
       <body className="min-h-screen font-sans">{children}</body>
     </html>
   );
