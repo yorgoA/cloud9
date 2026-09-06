@@ -61,7 +61,7 @@ function CloudTab({
       />
       <span
         className={cn(
-          "relative font-bold uppercase tracking-wide transition-colors",
+          "absolute left-[52%] top-[52%] -translate-x-1/2 -translate-y-1/2 whitespace-nowrap font-bold uppercase tracking-wide transition-colors",
           size === "lg" ? "text-sm sm:text-base" : "text-xs sm:text-sm",
           active ? "text-espresso" : "text-espresso/60"
         )}
