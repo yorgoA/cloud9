@@ -22,6 +22,8 @@ interface MenuGroup {
   subs: MenuSubcategory[];
 }
 
+const TILE_SHAPES = ["cloud-tile-1", "cloud-tile-2", "cloud-tile-3"];
+
 function formatPrice(cents: number | null): string {
   if (cents == null) return "—";
   return `€${(cents / 100).toFixed(2)}`;
@@ -30,7 +32,7 @@ function formatPrice(cents: number | null): string {
 export function MenuTabs({ groups }: { groups: MenuGroup[] }) {
   const [activeGroup, setActiveGroup] = useState(0);
   const [activeSub, setActiveSub] = useState(0);
-  const [previewId, setPreviewId] = useState<string | null>(null);
+  const [revealedId, setRevealedId] = useState<string | null>(null);
 
   const group = groups[activeGroup];
   const sub = group.subs[activeSub];
@@ -45,7 +47,7 @@ export function MenuTabs({ groups }: { groups: MenuGroup[] }) {
             onClick={() => {
               setActiveGroup(i);
               setActiveSub(0);
-              setPreviewId(null);
+              setRevealedId(null);
             }}
             className={cn(
               "relative rounded-full px-6 py-2.5 text-base font-bold uppercase tracking-wide transition-colors",
@@ -75,7 +77,7 @@ export function MenuTabs({ groups }: { groups: MenuGroup[] }) {
                 type="button"
                 onClick={() => {
                   setActiveSub(i);
-                  setPreviewId(null);
+                  setRevealedId(null);
                 }}
                 className="relative shrink-0 px-3.5 py-1.5 text-sm font-semibold transition-colors"
               >
@@ -102,60 +104,51 @@ export function MenuTabs({ groups }: { groups: MenuGroup[] }) {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.25, ease: "easeOut" }}
-          className="mt-8 space-y-3"
+          className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
         >
-          {sub.items.map((item, i) => (
-            <motion.div
-              key={item.id}
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: Math.min(i, 8) * 0.04, duration: 0.35, ease: "easeOut" }}
-              className="relative"
-              onMouseEnter={() => item.imageUrl && setPreviewId(item.id)}
-              onMouseLeave={() => setPreviewId((cur) => (cur === item.id ? null : cur))}
-              onClick={() => item.imageUrl && setPreviewId((cur) => (cur === item.id ? null : item.id))}
-            >
-              <AnimatePresence>
-                {previewId === item.id && item.imageUrl && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 14, scale: 0.85, rotate: -3 }}
-                    animate={{ opacity: 1, y: 0, scale: 1, rotate: -2 }}
-                    exit={{ opacity: 0, y: 10, scale: 0.85 }}
-                    transition={{ type: "spring", stiffness: 320, damping: 24 }}
-                    className="pointer-events-none absolute bottom-full left-1/2 z-20 mb-3 w-36 -translate-x-1/2 sm:w-48"
-                  >
-                    <p className="mb-2 text-center font-serif text-base font-medium text-espresso sm:text-lg">
-                      {item.name}
-                    </p>
-                    <div className="cloud-card overflow-hidden border-2 border-espresso bg-white">
-                      <img
-                        src={item.imageUrl}
-                        alt={item.name}
-                        className="aspect-square w-full object-cover"
-                      />
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-
-              <div
+          {sub.items.map((item, i) => {
+            const revealed = revealedId === item.id && !!item.imageUrl;
+            return (
+              <motion.div
+                key={item.id}
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: Math.min(i, 8) * 0.04, duration: 0.35, ease: "easeOut" }}
+                onMouseEnter={() => item.imageUrl && setRevealedId(item.id)}
+                onMouseLeave={() => setRevealedId((cur) => (cur === item.id ? null : cur))}
+                onClick={() => item.imageUrl && setRevealedId((cur) => (cur === item.id ? null : item.id))}
                 className={cn(
-                  "hard-card hard-card-hover flex flex-col gap-1 p-4 sm:flex-row sm:items-center sm:justify-between sm:p-5",
-                  item.imageUrl && "cursor-pointer"
+                  "relative min-h-[220px] overflow-hidden border-2 border-espresso bg-cream shadow-hard transition-transform duration-200",
+                  TILE_SHAPES[i % TILE_SHAPES.length],
+                  item.imageUrl && "cursor-pointer hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-hard-lg"
                 )}
               >
-                <div>
-                  <p className="font-medium text-espresso">{item.name}</p>
+                <motion.div
+                  animate={{ opacity: revealed ? 0 : 1 }}
+                  transition={{ duration: 0.3 }}
+                  className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-gradient-to-b from-white to-powder-blue/30 p-5 text-center"
+                >
+                  <p className="font-serif text-lg font-medium text-espresso">{item.name}</p>
                   {item.description && (
-                    <p className="mt-1 text-sm text-stone-600">{item.description}</p>
+                    <p className="line-clamp-4 text-sm text-stone-600">{item.description}</p>
                   )}
-                </div>
-                <p className="font-sans font-semibold text-espresso sm:shrink-0">
-                  {formatPrice(item.price_cents)}
-                </p>
-              </div>
-            </motion.div>
-          ))}
+                  <p className="mt-1 font-sans font-semibold text-espresso">
+                    {formatPrice(item.price_cents)}
+                  </p>
+                </motion.div>
+
+                {item.imageUrl && (
+                  <motion.img
+                    src={item.imageUrl}
+                    alt={item.name}
+                    animate={{ opacity: revealed ? 1 : 0, scale: revealed ? 1 : 1.06 }}
+                    transition={{ duration: 0.3 }}
+                    className="absolute inset-0 h-full w-full object-cover"
+                  />
+                )}
+              </motion.div>
+            );
+          })}
         </motion.div>
       </AnimatePresence>
     </div>
