@@ -1,5 +1,4 @@
 import { LoyaltyManageClient } from "./LoyaltyManageClient";
-import { createClient } from "@/lib/supabase/server";
 
 export default async function AdminLoyaltyPage() {
   const adminUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;

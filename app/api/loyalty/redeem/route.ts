@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { NextResponse } from "next/server";
+import { serverError } from "@/lib/api/server-error";
 
 const REDEEM_TOKEN_EXPIRY_MINUTES = 5;
 
@@ -73,7 +74,6 @@ export async function POST(request: Request) {
       expires_in_minutes: REDEEM_TOKEN_EXPIRY_MINUTES,
     });
   } catch (e) {
-    console.error(e);
-    return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
+    return serverError(e);
   }
 }

@@ -151,7 +151,6 @@ export function LoyaltyAppClient() {
         reward={redeemReward}
         pointsBalance={customer.points_balance}
         onClose={() => setRedeemReward(null)}
-        onRedeemed={() => setRedeemReward(null)}
       />
     </>
   );

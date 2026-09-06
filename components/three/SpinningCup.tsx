@@ -171,7 +171,6 @@ export function SpinningCup({
       container.removeChild(renderer.domElement);
     };
     // Scene is built once; texture swaps are handled by the effect below.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Swap the texture on the existing material whenever it changes, without
