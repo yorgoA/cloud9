@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Cloud, Coffee, Leaf, Heart } from "lucide-react";
+import Image from "next/image";
+import { Coffee, Leaf, Heart } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { getTranslations } from "next-intl/server";
 import { Link as LocaleLink } from "@/i18n/navigation";
@@ -38,13 +39,13 @@ export async function Footer() {
   }
 
   return (
-    <footer className="shrink-0 max-h-[10vh]">
-      <div className="bg-[#5D4037] py-1">
+    <footer className="shrink-0 max-h-[10vh] border-t-2 border-espresso bg-espresso">
+      <div className="border-b border-cream/15 py-0.5">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-3 px-4 sm:px-6">
           {trustBadgeKeys.map(({ icon: Icon, key }) => (
             <div
               key={key}
-              className="flex items-center gap-1 text-[10px] font-medium tracking-wide text-white"
+              className="flex items-center gap-1 text-[10px] font-medium tracking-wide text-powder-blue"
             >
               <Icon className="h-3 w-3 shrink-0" strokeWidth={1.5} />
               <span>{t(key)}</span>
@@ -53,19 +54,21 @@ export async function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-latte-beige/60 bg-ivory py-2">
+      <div className="py-1.5">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-1 text-center sm:justify-between sm:text-left">
-            <LocaleLink
-              href="/"
-              className="flex items-center gap-1 font-serif text-sm font-medium text-stone-800"
-            >
-              <Cloud className="h-4 w-4 text-sky-blue" />
-              {tCommon("cloud9")}
+            <LocaleLink href="/" className="flex items-center" aria-label={tCommon("cloud9")}>
+              <Image
+                src="/brand/logo-white.png"
+                alt={tCommon("cloud9")}
+                width={120}
+                height={82}
+                className="h-6 w-auto"
+              />
             </LocaleLink>
 
             <div className="flex items-center gap-2">
-              <span className="text-[10px] font-semibold uppercase text-stone-500">
+              <span className="text-[10px] font-semibold uppercase text-cream/60">
                 {t("findUs")}
               </span>
               <div className="flex gap-1">
@@ -73,7 +76,7 @@ export async function Footer() {
                   href={contact.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex h-6 w-6 items-center justify-center rounded-full border border-stone-300 text-stone-600 hover:text-stone-800"
+                  className="flex h-6 w-6 items-center justify-center rounded-full border border-cream/40 text-cream/80 hover:border-cream hover:text-cream"
                   aria-label="Instagram"
                 >
                   <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 24 24">
@@ -89,7 +92,7 @@ export async function Footer() {
                   href={contact.tiktok}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex h-6 w-6 items-center justify-center rounded-full border border-stone-300 text-stone-600 hover:text-stone-800"
+                  className="flex h-6 w-6 items-center justify-center rounded-full border border-cream/40 text-cream/80 hover:border-cream hover:text-cream"
                   aria-label="TikTok"
                 >
                   <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 24 24">
@@ -97,27 +100,28 @@ export async function Footer() {
                   </svg>
                 </a>
               </div>
-              <span className="text-[10px] text-stone-500">
-                {contact.address_line1}
-                {contact.address_line2 ? `, ${contact.address_line2}` : ""}
+              <span className="text-[10px] text-cream/60">
+                {[contact.address_line1, contact.address_line2, contact.address_line3]
+                  .filter(Boolean)
+                  .join(", ")}
               </span>
             </div>
 
-            <div className="flex items-center gap-2 text-[10px] text-stone-600">
+            <div className="flex items-center gap-2 text-[10px] text-cream/70">
               <a
                 href={`mailto:${contact.email}`}
-                className="hover:text-stone-800"
+                className="hover:text-cream"
               >
                 {contact.email}
               </a>
-              <span className="text-stone-400">·</span>
-              <a href={`tel:${contact.phone.replace(/\s/g, "")}`} className="hover:text-stone-800">
+              <span className="text-cream/30">·</span>
+              <a href={`tel:${contact.phone.replace(/\s/g, "")}`} className="hover:text-cream">
                 {contact.phone}
               </a>
               {isAdmin && (
                 <>
-                  <span className="text-stone-400">·</span>
-                  <Link href="/admin" className="hover:text-stone-800">
+                  <span className="text-cream/30">·</span>
+                  <Link href="/admin" className="hover:text-cream">
                     {tCommon("admin")}
                   </Link>
                 </>
@@ -125,7 +129,7 @@ export async function Footer() {
             </div>
           </div>
 
-          <p className="mt-1.5 text-center text-[9px] text-stone-500">
+          <p className="mt-1 text-center text-[9px] text-cream/40">
             © {new Date().getFullYear()} {tCommon("cloud9")}
           </p>
         </div>

@@ -1,5 +1,4 @@
 import { MoodManageClient } from "./MoodManageClient";
-import { createClient } from "@/lib/supabase/server";
 import { getWeekKey } from "@/lib/utils";
 
 export default async function AdminMoodPage() {

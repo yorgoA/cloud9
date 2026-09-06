@@ -1,5 +1,4 @@
 import { GalleryManageClient } from "./GalleryManageClient";
-import { createClient } from "@/lib/supabase/server";
 
 export default async function AdminGalleryPage() {
   const adminUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;

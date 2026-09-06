@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Cloud, LogOut, Menu } from "lucide-react";
+import { LogOut, Menu } from "lucide-react";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -46,27 +47,30 @@ export function Header() {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/40 bg-cream/80 backdrop-blur-md">
+    <header className="fixed top-0 left-0 right-0 z-50 border-b-2 border-espresso bg-cream">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-6 px-4 sm:px-6">
         <div className="flex items-center gap-6">
-          <Link
-            href="/"
-            className="flex shrink-0 items-center gap-2 font-serif text-xl font-medium text-[#5D4037]"
-          >
-            <Cloud className="h-7 w-7 text-sky-blue" />
-            {t("cloud9")}
+          <Link href="/" className="flex shrink-0 items-center" aria-label={t("cloud9")}>
+            <Image
+              src="/brand/logo-blue.png"
+              alt={t("cloud9")}
+              width={160}
+              height={109}
+              priority
+              className="h-12 w-auto"
+            />
           </Link>
 
-          <nav className="hidden md:flex md:items-center md:gap-1">
+          <nav className="hidden md:flex md:items-center md:gap-1.5">
             {navLinkKeys.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  "rounded-xl px-4 py-2 text-sm font-medium transition-colors",
+                  "rounded-full px-4 py-2 text-sm font-semibold transition-all",
                   pathname === link.href
-                    ? "bg-coffee-hover text-stone-800"
-                    : "text-stone-600 hover:bg-coffee-hover/80 hover:text-stone-800"
+                    ? "border-2 border-espresso bg-dusty-blue text-cream shadow-hard-sm"
+                    : "border-2 border-transparent text-espresso hover:border-espresso hover:bg-powder-blue/40"
                 )}
               >
                 {t(link.key)}
@@ -112,7 +116,7 @@ export function Header() {
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: "auto" }}
           exit={{ opacity: 0, height: 0 }}
-          className="md:hidden border-t border-white/40 bg-cream/95 backdrop-blur-md"
+          className="md:hidden border-t-2 border-espresso bg-cream"
         >
           <nav className="flex flex-col gap-1 p-4">
             {user ? (

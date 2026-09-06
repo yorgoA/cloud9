@@ -4,14 +4,15 @@
 
 @layer base {
   :root {
-    --cream: #fdf8f3;
-    --latte-beige: #e8ded4;
-    --ivory: #f5f0e8;
-    --sky-blue: #a8d4e6;
-    --powder-blue: #c5e3f0;
-    --soft-white: #faf9f7;
-    --glass-bg: rgba(253, 248, 243, 0.72);
-    --glass-border: rgba(232, 222, 212, 0.6);
+    --cream: #f2efe6;
+    --latte-beige: #d6c7b3;
+    --ivory: #f7f3ea;
+    --sky-blue: #839bae;
+    --powder-blue: #bed4e5;
+    --soft-white: #faf8f3;
+    --espresso: #53443d;
+    --glass-bg: rgba(242, 239, 230, 0.72);
+    --glass-border: rgba(214, 199, 179, 0.6);
   }
 
   html {
@@ -37,7 +38,20 @@
     /* Soft cloud-like curves without clipping content */
     border-radius: 3rem 2.2rem 2.8rem 2.4rem / 2.5rem 2.8rem 2.6rem 2.2rem;
     /* Shadow so cloud shape pops */
-    filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.08)) drop-shadow(0 2px 6px rgba(168, 212, 230, 0.15));
+    filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.08)) drop-shadow(0 2px 6px rgba(131, 155, 174, 0.18));
+  }
+
+  /* Bold, graphic cards with a hard offset shadow (no blur) — the "pop off the page" look */
+  .hard-card {
+    @apply rounded-3xl border-2 border-espresso bg-cream shadow-hard transition-transform duration-200;
+  }
+
+  .hard-card-hover {
+    @apply hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-hard-lg active:translate-x-0 active:translate-y-0 active:shadow-none;
+  }
+
+  .badge-icon {
+    @apply flex h-16 w-16 shrink-0 items-center justify-center rounded-full border-2 border-espresso;
   }
 }
 

@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { Cloud, CheckCircle, XCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GlassCard } from "@/components/ui/GlassCard";
+import Link from "next/link";
 
 export function StaffValidateClient() {
   const searchParams = useSearchParams();
@@ -18,6 +19,7 @@ export function StaffValidateClient() {
   } | null>(null);
   const [loading, setLoading] = useState(!!token);
   const [error, setError] = useState<string | null>(null);
+  const [needsLogin, setNeedsLogin] = useState(false);
   const [validated, setValidated] = useState(false);
 
   useEffect(() => {
@@ -53,6 +55,7 @@ export function StaffValidateClient() {
       const json = await res.json();
       if (!res.ok) {
         setError(json.error ?? "Validation failed");
+        setNeedsLogin(res.status === 401 || res.status === 403);
         return;
       }
       setValidated(true);
@@ -109,9 +112,15 @@ export function StaffValidateClient() {
           <p className="text-sm text-stone-600">Current balance</p>
           <p className="font-medium text-stone-800">{data.current_balance} pts</p>
           {error && <p className="text-sm text-red-600">{error}</p>}
-          <Button className="w-full" size="lg" onClick={handleValidate} disabled={loading}>
-            {loading ? "Validating…" : "Validate redemption"}
-          </Button>
+          {needsLogin ? (
+            <Button asChild className="w-full" size="lg">
+              <Link href="/admin/login">Log in to validate</Link>
+            </Button>
+          ) : (
+            <Button className="w-full" size="lg" onClick={handleValidate} disabled={loading}>
+              {loading ? "Validating…" : "Validate redemption"}
+            </Button>
+          )}
         </GlassCard>
       )}
 

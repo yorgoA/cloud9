@@ -1,6 +1,5 @@
 import { DailyCodeClient } from "./DailyCodeClient";
 import { QrManageClient } from "./QrManageClient";
-import { createClient } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
 

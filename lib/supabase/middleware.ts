@@ -5,7 +5,7 @@ export async function updateSession(
   request: NextRequest,
   baseResponse?: NextResponse
 ) {
-  let response =
+  const response =
     baseResponse ??
     NextResponse.next({
       request: { headers: request.headers },

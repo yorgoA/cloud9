@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { createClient } from "@/lib/supabase/server";
-import { GlassCard } from "@/components/ui/GlassCard";
 import { getTranslations } from "next-intl/server";
 
 export const dynamic = "force-dynamic";
@@ -21,22 +20,22 @@ export default async function GalleryPage() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
       <header className="text-center">
-        <h1 className="font-serif text-4xl font-medium text-[#5D4037] sm:text-5xl">
+        <h1 className="font-serif text-4xl font-medium text-espresso sm:text-5xl">
           {t("title")}
         </h1>
-        <p className="mt-4 font-sans text-[#5D4037]">{t("subtitle")}</p>
+        <p className="mt-4 font-sans text-espresso">{t("subtitle")}</p>
       </header>
 
       {!images?.length ? (
-        <GlassCard className="mt-16 p-12 text-center text-stone-600">
+        <div className="hard-card mt-16 p-12 text-center text-stone-600">
           {t("comingSoon")}
-        </GlassCard>
+        </div>
       ) : (
         <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {images.map((img) => {
             const src = `${supabaseUrl}/storage/v1/object/public/${bucket}/${img.path}`;
             return (
-              <GlassCard key={img.id} className="overflow-hidden p-0">
+              <div key={img.id} className="hard-card hard-card-hover overflow-hidden p-0">
                 <div className="relative aspect-[4/3]">
                   <Image
                     src={src}
@@ -51,7 +50,7 @@ export default async function GalleryPage() {
                     {img.caption}
                   </p>
                 )}
-              </GlassCard>
+              </div>
             );
           })}
         </div>

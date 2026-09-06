@@ -1,5 +1,6 @@
-import { createClient } from "@/lib/supabase/server";
 import { NextResponse } from "next/server";
+import { requireAdmin } from "@/lib/auth/require-admin";
+import { serverError } from "@/lib/api/server-error";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -14,8 +15,8 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 
-  const { createClient: createAdmin } = await import("@supabase/supabase-js");
-  const admin = createAdmin(adminUrl, serviceKey);
+  const { createClient: createAdminClient } = await import("@supabase/supabase-js");
+  const admin = createAdminClient(adminUrl, serviceKey);
 
   const { data: rt, error: rtErr } = await admin
     .from("redemption_tokens")
@@ -44,22 +45,26 @@ export async function GET(request: Request) {
   });
 }
 
+// Mutates state (deducts points, marks the token used) — this is the step that
+// must only ever happen from a staff/admin session. Without this check, a
+// customer could open their own redemption link and validate it themselves,
+// skipping the in-person staff check entirely.
 export async function POST(request: Request) {
+  const auth = await requireAdmin();
+  if (!auth.ok) {
+    return NextResponse.json(
+      { error: "Staff must be logged in to validate a redemption." },
+      { status: auth.status }
+    );
+  }
+  const admin = auth.admin;
+
   try {
     const body = await request.json();
     const token = body.token as string;
     if (!token) {
       return NextResponse.json({ error: "Missing token" }, { status: 400 });
     }
-
-    const adminUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-    const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-    if (!serviceKey) {
-      return NextResponse.json({ error: "Server error" }, { status: 500 });
-    }
-
-    const { createClient: createAdmin } = await import("@supabase/supabase-js");
-    const admin = createAdmin(adminUrl, serviceKey);
 
     const { data: rt, error: rtErr } = await admin
       .from("redemption_tokens")
@@ -98,7 +103,6 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ success: true });
   } catch (e) {
-    console.error(e);
-    return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
+    return serverError(e);
   }
 }

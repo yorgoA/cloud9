@@ -1,5 +1,4 @@
 import { RewardsManageClient } from "./RewardsManageClient";
-import { createClient } from "@/lib/supabase/server";
 
 export default async function AdminRewardsPage() {
   const adminUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;

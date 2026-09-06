@@ -4,7 +4,6 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { createClient } from "@/lib/supabase/client";
 import type { RewardCatalog } from "@/lib/db/types";
 import { useTranslations } from "next-intl";
 
@@ -12,14 +11,12 @@ interface RedeemModalProps {
   reward: RewardCatalog | null;
   pointsBalance: number;
   onClose: () => void;
-  onRedeemed: () => void;
 }
 
 export function RedeemModal({
   reward,
   pointsBalance,
   onClose,
-  onRedeemed,
 }: RedeemModalProps) {
   const t = useTranslations("redeemModal");
   const tCommon = useTranslations("common");
@@ -27,7 +24,6 @@ export function RedeemModal({
   const [loading, setLoading] = useState(false);
   const [redeemUrl, setRedeemUrl] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const supabase = createClient();
 
   const canRedeem = reward && pointsBalance >= reward.points_required;
 

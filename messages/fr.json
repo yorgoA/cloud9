@@ -30,7 +30,12 @@
     "loyaltyCardTitle": "Fidélité",
     "loyaltyCardDesc": "Collectez des points à chaque visite et échangez-les contre des récompenses.",
     "visitCardTitle": "Nous rendre visite",
-    "visitCardDesc": "Trouvez notre adresse, nos horaires et comment nous rejoindre."
+    "visitCardDesc": "Trouvez notre adresse, nos horaires et comment nous rejoindre.",
+    "menuShowcase": {
+      "cloud": { "name": "Cloud Series", "desc": "Eau de coco, en couches et surmontée d'un nuage de mousse aromatisée." },
+      "matcha": { "name": "Bar à Matcha", "desc": "Fouetté avec un matcha Okumidori bio, tout droit venu du Japon." },
+      "latte": { "name": "Lattes", "desc": "Espresso et lait, adoucis à la vanille, à la noisette ou au caramel au beurre salé." }
+    }
   },
   "concept": {
     "title": "Notre concept",

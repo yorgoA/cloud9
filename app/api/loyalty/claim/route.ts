@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { NextResponse } from "next/server";
+import { serverError } from "@/lib/api/server-error";
 
 const POINTS_PER_VISIT = 100;
 
@@ -61,8 +62,7 @@ export async function POST(request: Request) {
 
     return await addClaim(admin, customer.id, customer.points_balance);
   } catch (e) {
-    console.error(e);
-    return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
+    return serverError(e);
   }
 }
 

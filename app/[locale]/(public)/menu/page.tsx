@@ -1,18 +1,39 @@
 import { createClient } from "@/lib/supabase/server";
-import { GlassCard } from "@/components/ui/GlassCard";
 import type { MenuItem } from "@/lib/db/types";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, getLocale } from "next-intl/server";
+import { MenuTabs } from "./MenuTabs";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 60;
 
-function formatPrice(cents: number | null): string {
-  if (cents == null) return "—";
-  return `€${(cents / 100).toFixed(2)}`;
-}
+const GROUPS = [
+  {
+    label: "Hot",
+    subs: [
+      { dbCategory: "Hot Coffee", label: "Coffee" },
+      { dbCategory: "Hot Latte & More", label: "Lattes" },
+      { dbCategory: "Hot Matcha", label: "Matcha Bar" },
+    ],
+  },
+  {
+    label: "Cold",
+    subs: [
+      { dbCategory: "Iced Coffee", label: "Coffee" },
+      { dbCategory: "Iced Latte & More", label: "Latte & More" },
+      { dbCategory: "Iced Matcha", label: "Matcha Bar" },
+      { dbCategory: "Cloud Series", label: "Cloud Series" },
+      { dbCategory: "Softs", label: "Softs" },
+    ],
+  },
+  {
+    label: "Bakes",
+    subs: [{ dbCategory: "Bakes", label: "Bakes" }],
+  },
+];
 
 export default async function MenuPage() {
   const t = await getTranslations("menu");
+  const locale = await getLocale();
 
   const supabase = await createClient();
   const { data: items } = await supabase
@@ -22,9 +43,13 @@ export default async function MenuPage() {
     .order("category")
     .order("sort_order");
 
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const imageUrl = (path: string | null) =>
+    path ? `${supabaseUrl}/storage/v1/object/public/menu-items/${path}` : null;
+
   const byCategory = (items ?? []).reduce<Record<string, MenuItem[]>>(
     (acc, item) => {
-      const cat = item.category ?? t("other");
+      const cat = item.category ?? "";
       if (!acc[cat]) acc[cat] = [];
       acc[cat].push(item);
       return acc;
@@ -32,50 +57,38 @@ export default async function MenuPage() {
     {}
   );
 
-  const categories = Object.keys(byCategory).sort();
+  const groups = GROUPS.map((group) => ({
+    label: group.label,
+    subs: group.subs
+      .filter((sub) => byCategory[sub.dbCategory]?.length)
+      .map((sub) => ({
+        label: sub.label,
+        items: byCategory[sub.dbCategory].map((item) => ({
+          id: item.id,
+          name: (locale === "fr" && item.name_fr) || item.name,
+          description: (locale === "fr" && item.description_fr) || item.description,
+          price_cents: item.price_cents,
+          imageUrl: imageUrl(item.image_path),
+        })),
+      })),
+  })).filter((group) => group.subs.length > 0);
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 sm:py-24">
       <header className="text-center">
-        <h1 className="font-serif text-4xl font-medium text-[#5D4037] sm:text-5xl">
+        <h1 className="font-serif text-4xl font-medium text-espresso sm:text-5xl">
           {t("title")}
         </h1>
-        <p className="mt-4 font-sans text-[#5D4037]">{t("subtitle")}</p>
+        <p className="mt-4 font-sans text-espresso">{t("subtitle")}</p>
       </header>
 
-      <div className="mt-16 space-y-12">
-        {categories.length === 0 ? (
-          <GlassCard className="p-8 text-center text-stone-600">
+      <div className="mt-12">
+        {groups.length === 0 ? (
+          <div className="hard-card p-8 text-center text-stone-600">
             {t("updating")}
-          </GlassCard>
+          </div>
         ) : (
-          categories.map((category) => (
-            <section key={category}>
-              <h2 className="font-serif text-2xl font-medium text-stone-800">
-                {category}
-              </h2>
-              <div className="mt-4 space-y-3">
-                {byCategory[category].map((item) => (
-                  <GlassCard
-                    key={item.id}
-                    className="flex flex-col gap-1 p-4 sm:flex-row sm:items-center sm:justify-between sm:p-5"
-                  >
-                    <div>
-                      <p className="font-medium text-stone-800">{item.name}</p>
-                      {item.description && (
-                        <p className="mt-1 text-sm text-stone-600">
-                          {item.description}
-                        </p>
-                      )}
-                    </div>
-                    <p className="font-sans font-medium text-stone-700 sm:shrink-0">
-                      {formatPrice(item.price_cents)}
-                    </p>
-                  </GlassCard>
-                ))}
-              </div>
-            </section>
-          ))
+          <MenuTabs groups={groups} />
         )}
       </div>
     </div>
