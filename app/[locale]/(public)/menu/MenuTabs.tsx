@@ -103,11 +103,12 @@ function SubTab({
 }
 
 export function MenuTabs({ groups }: { groups: MenuGroup[] }) {
-  const [activeGroup, setActiveGroup] = useState<number | null>(null);
-  const [activeSub, setActiveSub] = useState<number | null>(null);
+  // Open on the first group + first subcategory so visitors land on a populated menu
+  const [activeGroup, setActiveGroup] = useState(0);
+  const [activeSub, setActiveSub] = useState(0);
 
-  const group = activeGroup != null ? groups[activeGroup] : null;
-  const sub = group && activeSub != null ? group.subs[activeSub] : null;
+  const group = groups[activeGroup] ?? null;
+  const sub = group?.subs[activeSub] ?? null;
 
   return (
     <div>
